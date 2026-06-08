@@ -1,0 +1,179 @@
+<section class="renovation-hero" #heroSection>
+  <div class="hero-parallax-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="hero-label">Renovation Services</span>
+    <h1 class="hero-title" #heroTitle>
+      Transform<br>
+      <span class="title-gradient">Your Space</span>
+    </h1>
+    <p class="hero-subtitle" #heroSubtitle>
+      Breathe new life into your home with our expert renovation services.
+      From kitchen makeovers to complete home transformations.
+    </p>
+    <a routerLink="/contact" class="hero-cta-btn">
+      <span>Get Free Estimate</span>
+      <span class="btn-arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section" #statsSection>
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-value">{{ projectsCompleted }}+</span>
+        <span class="stat-label">Renovations Done</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value">{{ happyClients }}+</span>
+        <span class="stat-label">Happy Clients</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value">{{ yearsExperience }}+</span>
+        <span class="stat-label">Years Experience</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Renovation Types -->
+<section class="types-section" #typesSection>
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">What We Renovate</span>
+      <h2 class="section-title">Renovation Services</h2>
+      <hr class="gold-line" />
+    </div>
+
+    <div class="types-grid">
+      <div class="type-card" *ngFor="let type of renovationTypes" #typeCard>
+        <div class="card-glow"></div>
+        <div class="card-inner">
+          <div class="card-icon-wrapper">
+            <span class="card-icon">{{ type.icon }}</span>
+          </div>
+          <h3 class="card-title">{{ type.title }}</h3>
+          <p class="card-description">{{ type.description }}</p>
+
+          <div class="price-badge">
+            <span class="price-icon">💰</span>
+            <span class="price-text">{{ type.priceRange }}</span>
+          </div>
+
+          <div class="card-features">
+            <span class="feature-tag" *ngFor="let feature of type.features">
+              {{ feature }}
+            </span>
+          </div>
+
+          <a routerLink="/contact" class="card-btn">
+            <span>Get Quote</span>
+            <span class="btn-arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Before/After Showcase -->
+<section class="showcase-section" #showcaseSection>
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">See the Difference</span>
+      <h2 class="section-title">Before & After</h2>
+      <hr class="gold-line" />
+    </div>
+
+    <div class="showcase-grid">
+      <div class="showcase-card" *ngFor="let item of beforeAfterItems" #showcaseCard>
+        <div class="showcase-header">
+          <span class="showcase-icon">{{ item.icon }}</span>
+          <h3 class="showcase-title">{{ item.title }}</h3>
+        </div>
+
+        <div class="showcase-slider">
+          <div class="slider-before">
+            <div class="slider-content before-content">
+              <div class="slider-label-badge">Before</div>
+              <span class="slider-text">{{ item.beforeLabel }}</span>
+              <div class="before-visual">
+                <div class="visual-block" *ngFor="let _ of [1,2,3,4,5,6]"></div>
+              </div>
+            </div>
+          </div>
+          <div class="slider-after">
+            <div class="slider-content after-content">
+              <div class="slider-label-badge after-badge">After</div>
+              <span class="slider-text">{{ item.afterLabel }}</span>
+              <div class="after-visual">
+                <div class="visual-block shimmer" *ngFor="let _ of [1,2,3,4,5,6]"></div>
+              </div>
+            </div>
+          </div>
+          <div class="slider-divider">
+            <div class="slider-handle">
+              <span class="handle-icon">⇔</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="showcase-description">{{ item.description }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Renovation Process -->
+<section class="process-section" #processSection>
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">How It Works</span>
+      <h2 class="section-title">Our Renovation Process</h2>
+      <hr class="gold-line" />
+    </div>
+
+    <div class="process-grid">
+      <ng-container *ngFor="let step of processSteps; let i = index; let last = last">
+        <div class="process-card" #processCard>
+          <div class="process-number">{{ step.number }}</div>
+          <div class="process-icon">{{ step.icon }}</div>
+          <h3 class="process-title">{{ step.title }}</h3>
+          <p class="process-description">{{ step.description }}</p>
+        </div>
+        <div class="process-connector" *ngIf="!last">
+          <span class="connector-arrow">→</span>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section" #ctaSection>
+  <div class="container">
+    <div class="cta-inner">
+      <div class="cta-glow cta-glow--left"></div>
+      <div class="cta-glow cta-glow--right"></div>
+      <div class="cta-content">
+        <span class="cta-icon">🏠</span>
+        <h2 class="cta-title">Get Your Renovation Estimate</h2>
+        <p class="cta-text">
+          Share your renovation requirements and get a detailed cost estimate
+          with timeline from our expert team — absolutely free.
+        </p>
+        <div class="cta-actions">
+          <a routerLink="/contact" class="cta-btn-primary">
+            <span>Get Free Estimate</span>
+            <span class="btn-arrow">→</span>
+          </a>
+          <a routerLink="/services" class="cta-btn-outline">
+            <span>View All Services</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

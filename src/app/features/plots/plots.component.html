@@ -1,0 +1,153 @@
+<!-- ===== HERO SECTION ===== -->
+<section class="hero" #heroSection>
+  <div class="hero__bg"></div>
+  <div class="hero__overlay"></div>
+  <div class="hero__content">
+    <div class="hero__label">BuildNest Premium Lands</div>
+    <hr class="hero__line" />
+    <h1 class="hero__title">Premium Plots <span class="hero__title--accent">&</span> Land</h1>
+    <p class="hero__subtitle">
+      Invest in your future — discover carefully curated plots in prime locations
+      with verified titles and complete documentation.
+    </p>
+  </div>
+  <div class="hero__scroll-indicator">
+    <span>Explore</span>
+    <div class="hero__scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- ===== FILTER BAR ===== -->
+<section class="filter-section" #filterBar>
+  <div class="filter-bar">
+    <div class="filter-bar__title">
+      <span class="filter-bar__icon">⚙</span>
+      Find Your Perfect Plot
+    </div>
+
+    <div class="filter-bar__grid">
+      <!-- Location -->
+      <div class="filter-group">
+        <label class="filter-group__label">Location</label>
+        <select class="filter-group__select" [(ngModel)]="filters.location" (change)="applyFilters()">
+          <option value="">All Locations</option>
+          <option *ngFor="let loc of locations" [value]="loc">{{ loc }}</option>
+        </select>
+      </div>
+
+      <!-- Price Range -->
+      <div class="filter-group">
+        <label class="filter-group__label">Price Range</label>
+        <select class="filter-group__select" [(ngModel)]="selectedPriceRange" (change)="applyFilters()">
+          <option *ngFor="let range of priceRanges" [value]="range.label">{{ range.label }}</option>
+        </select>
+      </div>
+
+      <!-- Area Range -->
+      <div class="filter-group">
+        <label class="filter-group__label">Area Range</label>
+        <select class="filter-group__select" [(ngModel)]="selectedAreaRange" (change)="applyFilters()">
+          <option *ngFor="let range of areaRanges" [value]="range.label">{{ range.label }}</option>
+        </select>
+      </div>
+
+      <!-- Facing Direction -->
+      <div class="filter-group">
+        <label class="filter-group__label">Facing</label>
+        <select class="filter-group__select" [(ngModel)]="filters.facing" (change)="applyFilters()">
+          <option value="">All Directions</option>
+          <option *ngFor="let dir of facingDirections" [value]="dir">{{ dir }}</option>
+        </select>
+      </div>
+
+      <!-- Status -->
+      <div class="filter-group">
+        <label class="filter-group__label">Status</label>
+        <select class="filter-group__select" [(ngModel)]="filters.status" (change)="applyFilters()">
+          <option value="">All Status</option>
+          <option value="Available">Available</option>
+          <option value="Reserved">Reserved</option>
+          <option value="Sold">Sold</option>
+        </select>
+      </div>
+
+      <!-- Reset -->
+      <div class="filter-group filter-group--actions">
+        <button class="filter-bar__reset" (click)="resetFilters()">
+          ✕ Reset
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RESULTS SECTION ===== -->
+<section class="results" #resultsSection>
+  <div class="results__container">
+    <div class="results__header">
+      <h2 class="results__count">
+        Showing <span class="results__count--highlight">{{ filteredPlots.length }}</span> plots
+      </h2>
+      <p class="results__info" *ngIf="filteredPlots.length === 0">
+        No plots match your criteria. Try adjusting the filters.
+      </p>
+    </div>
+
+    <!-- ===== PLOT CARDS GRID ===== -->
+    <div class="plots-grid">
+      <div class="plot-card" *ngFor="let plot of filteredPlots; let i = index" #plotCard>
+        <!-- Status Badge -->
+        <div class="plot-card__status" [ngClass]="getStatusClass(plot.status)">
+          {{ plot.status }}
+        </div>
+
+        <!-- Facing Badge -->
+        <div class="plot-card__facing">
+          <span class="plot-card__facing-icon">{{ getFacingIcon(plot.facingDirection) }}</span>
+          {{ plot.facingDirection }} Facing
+        </div>
+
+        <!-- Card Header -->
+        <div class="plot-card__header">
+          <h3 class="plot-card__title">{{ plot.title }}</h3>
+          <div class="plot-card__location">
+            <span class="plot-card__pin">📍</span>
+            {{ plot.location }}
+          </div>
+        </div>
+
+        <!-- Divider -->
+        <hr class="plot-card__divider" />
+
+        <!-- Stats Row -->
+        <div class="plot-card__stats">
+          <div class="plot-card__stat">
+            <span class="plot-card__stat-label">Area</span>
+            <span class="plot-card__stat-value">{{ plot.areaSqYd }} sq.yd</span>
+          </div>
+          <div class="plot-card__stat">
+            <span class="plot-card__stat-label">Price</span>
+            <span class="plot-card__stat-value plot-card__stat-value--price">{{ formatPrice(plot.price) }}</span>
+          </div>
+          <div class="plot-card__stat">
+            <span class="plot-card__stat-label">Per sq.yd</span>
+            <span class="plot-card__stat-value">{{ formatPricePerUnit(plot.pricePerSqYd) }}</span>
+          </div>
+        </div>
+
+        <!-- Features -->
+        <div class="plot-card__features">
+          <span class="plot-card__feature" *ngFor="let feature of plot.features">
+            {{ feature }}
+          </span>
+        </div>
+
+        <!-- CTA -->
+        <button class="plot-card__cta" [disabled]="plot.status === 'Sold'">
+          <span *ngIf="plot.status !== 'Sold'">Inquire Now →</span>
+          <span *ngIf="plot.status === 'Sold'">Sold Out</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,166 @@
+<!-- ===== HERO SECTION ===== -->
+<section class="hero" #heroSection>
+  <div class="hero__bg"></div>
+  <div class="hero__overlay"></div>
+
+  <!-- Floating decorative shapes -->
+  <div class="hero__shape hero__shape--1"></div>
+  <div class="hero__shape hero__shape--2"></div>
+  <div class="hero__shape hero__shape--3"></div>
+
+  <div class="hero__content">
+    <div class="hero__label">BuildNest Premium Properties</div>
+    <hr class="hero__line" />
+    <h1 class="hero__title">Find Your <span class="hero__title--accent">Perfect</span> Home</h1>
+    <p class="hero__subtitle">
+      Explore our curated collection of ready-to-move homes — from elegant villas
+      to modern apartments, crafted for your dream lifestyle.
+    </p>
+  </div>
+
+  <div class="hero__scroll-indicator">
+    <span>Discover</span>
+    <div class="hero__scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- ===== FILTER BAR ===== -->
+<section class="filter-section" #filterBar>
+  <div class="filter-bar">
+    <div class="filter-bar__title">
+      <span class="filter-bar__icon">🏠</span>
+      Customize Your Search
+    </div>
+
+    <div class="filter-bar__grid">
+      <!-- BHK -->
+      <div class="filter-group">
+        <label class="filter-group__label">BHK</label>
+        <select class="filter-group__select" [(ngModel)]="selectedBHK" (change)="applyFilters()">
+          <option value="">All BHK</option>
+          <option *ngFor="let bhk of bhkOptions" [value]="bhk">{{ bhk }} BHK</option>
+        </select>
+      </div>
+
+      <!-- Property Type -->
+      <div class="filter-group">
+        <label class="filter-group__label">Property Type</label>
+        <select class="filter-group__select" [(ngModel)]="selectedType" (change)="applyFilters()">
+          <option value="">All Types</option>
+          <option *ngFor="let type of propertyTypes" [value]="type">{{ type }}</option>
+        </select>
+      </div>
+
+      <!-- Price Range -->
+      <div class="filter-group">
+        <label class="filter-group__label">Price Range</label>
+        <select class="filter-group__select" [(ngModel)]="selectedPriceRange" (change)="applyFilters()">
+          <option *ngFor="let range of priceRanges" [value]="range.label">{{ range.label }}</option>
+        </select>
+      </div>
+
+      <!-- Location -->
+      <div class="filter-group">
+        <label class="filter-group__label">Location</label>
+        <select class="filter-group__select" [(ngModel)]="selectedLocation" (change)="applyFilters()">
+          <option value="">All Locations</option>
+          <option *ngFor="let loc of locations" [value]="loc">{{ loc }}</option>
+        </select>
+      </div>
+
+      <!-- Reset -->
+      <div class="filter-group filter-group--actions">
+        <button class="filter-bar__reset" (click)="resetFilters()">✕ Reset</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RESULTS ===== -->
+<section class="results">
+  <div class="results__container">
+    <div class="results__header">
+      <h2 class="results__count">
+        Showing <span class="results__count--highlight">{{ filteredHomes.length }}</span> properties
+      </h2>
+      <p class="results__info" *ngIf="filteredHomes.length === 0">
+        No properties match your criteria. Try adjusting the filters.
+      </p>
+    </div>
+
+    <!-- ===== HOME CARDS GRID ===== -->
+    <div class="homes-grid">
+      <div
+        class="home-card"
+        *ngFor="let home of filteredHomes; let i = index"
+        #homeCard
+      >
+        <!-- Image Placeholder -->
+        <div class="home-card__image">
+          <div class="home-card__image-placeholder">
+            <div class="home-card__image-icon">🏡</div>
+            <span class="home-card__image-text">{{ home.propertyType }}</span>
+          </div>
+
+          <!-- NEW badge -->
+          <div class="home-card__new-badge" *ngIf="home.isNew">NEW</div>
+
+          <!-- Property Type badge -->
+          <div class="home-card__type-badge">{{ home.propertyType }}</div>
+        </div>
+
+        <!-- Card Body -->
+        <div class="home-card__body">
+          <h3 class="home-card__title">{{ home.title }}</h3>
+
+          <div class="home-card__location">
+            <span class="home-card__pin">📍</span>
+            {{ home.location }}
+          </div>
+
+          <!-- Specs Row -->
+          <div class="home-card__specs">
+            <div class="home-card__spec">
+              <span class="home-card__spec-icon">🛏️</span>
+              <span>{{ home.bhk }} BHK</span>
+            </div>
+            <div class="home-card__spec">
+              <span class="home-card__spec-icon">📐</span>
+              <span>{{ home.areaSqFt }} sq.ft</span>
+            </div>
+            <div class="home-card__spec">
+              <span class="home-card__spec-icon">🚿</span>
+              <span>{{ home.bathrooms }} Bath</span>
+            </div>
+          </div>
+
+          <!-- Price -->
+          <div class="home-card__price">
+            {{ formatPrice(home.price) }}
+          </div>
+
+          <!-- Amenities -->
+          <div class="home-card__amenities">
+            <span
+              class="home-card__amenity"
+              *ngFor="let amenity of home.amenities | slice:0:4"
+            >
+              <span class="home-card__amenity-icon">{{ getAmenityIcon(amenity) }}</span>
+              {{ amenity }}
+            </span>
+          </div>
+
+          <!-- Actions -->
+          <div class="home-card__actions">
+            <button class="home-card__btn-details" routerLink="/homes">
+              View Details
+            </button>
+            <button class="home-card__btn-inquire">
+              Inquire →
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

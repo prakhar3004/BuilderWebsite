@@ -1,0 +1,205 @@
+<!-- ============================================ -->
+<!-- BuildNest — Contact / Get Quote Page         -->
+<!-- ============================================ -->
+
+<!-- HERO SECTION -->
+<section class="hero" #heroSection>
+  <div class="hero__bg-pattern"></div>
+  <div class="hero__overlay"></div>
+
+  <!-- Floating construction elements -->
+  <div class="hero__float-elements">
+    <span class="hero__float-element hero__float-element--1">🏗️</span>
+    <span class="hero__float-element hero__float-element--2">🔨</span>
+    <span class="hero__float-element hero__float-element--3">📐</span>
+    <span class="hero__float-element hero__float-element--4">🧱</span>
+    <span class="hero__float-element hero__float-element--5">⚙️</span>
+    <span class="hero__float-element hero__float-element--6">🪜</span>
+  </div>
+
+  <div class="hero__content">
+    <span class="hero__label">Get In Touch</span>
+    <h1 class="hero__title">
+      Let's <span class="hero__title--gold">Build</span><br/>Together
+    </h1>
+    <p class="hero__subtitle">
+      Ready to start your construction journey? Get a free consultation and detailed
+      quote from our expert team. We're here to make your vision a reality.
+    </p>
+  </div>
+</section>
+
+<!-- FORM & CONTACT INFO SECTION -->
+<section class="form-section" #formSection>
+  <div class="form-section__container">
+    <!-- HEADER -->
+    <div class="form__header">
+      <span class="form__label">Request a Quote</span>
+      <h2 class="form__title">Tell Us About Your <span class="form__title--gold">Project</span></h2>
+    </div>
+
+    <div class="form-section__grid">
+      <!-- LEFT: CONTACT FORM -->
+      <div class="form-wrapper">
+        <!-- Success Message -->
+        <div class="form__success" *ngIf="isSubmitted">
+          <div class="form__success-icon">✅</div>
+          <h3 class="form__success-title">Thank You!</h3>
+          <p class="form__success-text">
+            Your inquiry has been submitted successfully. Our team will contact you within 24 hours.
+          </p>
+        </div>
+
+        <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="form" *ngIf="!isSubmitted">
+          <!-- Full Name -->
+          <div class="form__group" #formField>
+            <label class="form__field-label" for="name">Full Name</label>
+            <input
+              class="form__input"
+              type="text"
+              id="name"
+              formControlName="name"
+              placeholder="Enter your full name"
+              [class.form__input--error]="isFieldInvalid('name')"
+            />
+            <span class="form__error" *ngIf="isFieldInvalid('name')">
+              Please enter your full name (min 2 characters)
+            </span>
+          </div>
+
+          <!-- Phone -->
+          <div class="form__group" #formField>
+            <label class="form__field-label" for="phone">Phone Number</label>
+            <input
+              class="form__input"
+              type="tel"
+              id="phone"
+              formControlName="phone"
+              placeholder="Enter 10-digit phone number"
+              [class.form__input--error]="isFieldInvalid('phone')"
+            />
+            <span class="form__error" *ngIf="isFieldInvalid('phone')">
+              Please enter a valid 10-digit phone number
+            </span>
+          </div>
+
+          <!-- Email -->
+          <div class="form__group" #formField>
+            <label class="form__field-label" for="email">Email Address</label>
+            <input
+              class="form__input"
+              type="email"
+              id="email"
+              formControlName="email"
+              placeholder="Enter your email address"
+              [class.form__input--error]="isFieldInvalid('email')"
+            />
+            <span class="form__error" *ngIf="isFieldInvalid('email')">
+              Please enter a valid email address
+            </span>
+          </div>
+
+          <!-- Service Type -->
+          <div class="form__group" #formField>
+            <label class="form__field-label" for="serviceType">Service Type</label>
+            <select
+              class="form__select"
+              id="serviceType"
+              formControlName="serviceType"
+              [class.form__select--error]="isFieldInvalid('serviceType')"
+            >
+              <option value="" disabled>Select a service</option>
+              <option *ngFor="let opt of serviceOptions" [value]="opt.value">{{ opt.label }}</option>
+            </select>
+            <span class="form__error" *ngIf="isFieldInvalid('serviceType')">
+              Please select a service type
+            </span>
+          </div>
+
+          <!-- Message -->
+          <div class="form__group" #formField>
+            <label class="form__field-label" for="message">Message</label>
+            <textarea
+              class="form__textarea"
+              id="message"
+              formControlName="message"
+              placeholder="Describe your requirements, plot details, budget range..."
+              rows="5"
+              [class.form__textarea--error]="isFieldInvalid('message')"
+            ></textarea>
+            <span class="form__error" *ngIf="isFieldInvalid('message')">
+              Please enter your message (min 10 characters)
+            </span>
+          </div>
+
+          <!-- Submit -->
+          <div class="form__group" #formField>
+            <button
+              class="form__submit"
+              type="submit"
+              [disabled]="isSubmitting"
+              [class.form__submit--loading]="isSubmitting"
+            >
+              <span class="form__submit-text" *ngIf="!isSubmitting">Send Inquiry</span>
+              <span class="form__submit-loading" *ngIf="isSubmitting">
+                <span class="form__spinner"></span>
+                Sending...
+              </span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- RIGHT: CONTACT INFO -->
+      <div class="contact-info">
+        <div class="contact-info__card" *ngFor="let info of contactInfo" #contactCard>
+          <div class="contact-info__icon">{{ info.icon }}</div>
+          <div class="contact-info__content">
+            <h4 class="contact-info__title">{{ info.title }}</h4>
+            <p class="contact-info__value">{{ info.value }}</p>
+            <p class="contact-info__sub" *ngIf="info.subValue">{{ info.subValue }}</p>
+          </div>
+        </div>
+
+        <!-- Map Placeholder -->
+        <div class="contact-info__map">
+          <div class="contact-info__map-inner">
+            <span class="contact-info__map-pin">📍</span>
+            <span class="contact-info__map-text">Our Office Location</span>
+            <span class="contact-info__map-address">42, Vikram Tower, Gomti Nagar, Lucknow</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ SECTION -->
+<section class="faq" #faqSection>
+  <div class="faq__container">
+    <div class="faq__header">
+      <span class="faq__label">Common Questions</span>
+      <h2 class="faq__title">Frequently Asked <span class="faq__title--gold">Questions</span></h2>
+      <p class="faq__subtitle">
+        Find answers to the most common questions about home construction, costs, and our process.
+      </p>
+    </div>
+
+    <div class="faq__list">
+      <div
+        class="faq__item"
+        *ngFor="let faq of faqs; let i = index"
+        #faqItem
+        [class.faq__item--open]="faq.isOpen"
+      >
+        <button class="faq__question" (click)="toggleFaq(i)">
+          <span class="faq__question-text">{{ faq.question }}</span>
+          <span class="faq__chevron" [class.faq__chevron--open]="faq.isOpen">▸</span>
+        </button>
+        <div class="faq__answer-wrapper" [class.faq__answer-wrapper--open]="faq.isOpen">
+          <p class="faq__answer">{{ faq.answer }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

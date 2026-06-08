@@ -1,0 +1,358 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// =====================
+// HERO SECTION
+// =====================
+.services-hero {
+  position: relative;
+  min-height: 70vh;
+  @include flex-center;
+  flex-direction: column;
+  overflow: hidden;
+  background: $color-bg-dark;
+  padding: $space-20 $space-6;
+
+  .hero-bg-pattern {
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 50%, rgba($color-primary, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 50%, rgba($color-accent, 0.06) 0%, transparent 50%),
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 50px,
+        rgba($color-primary, 0.02) 50px,
+        rgba($color-primary, 0.02) 51px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 50px,
+        rgba($color-primary, 0.02) 50px,
+        rgba($color-primary, 0.02) 51px
+      );
+    z-index: 0;
+  }
+
+  .hero-overlay {
+    @include overlay(0.3);
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 800px;
+  }
+
+  .hero-label-line {
+    @include gold-line(80px);
+    margin: 0 auto $space-6;
+  }
+
+  .hero-label {
+    @include label-text;
+    display: block;
+    margin-bottom: $space-4;
+  }
+
+  .hero-title {
+    @include heading($fs-5xl);
+    margin-bottom: $space-6;
+    @include text-gradient;
+
+    @include respond-to('md') {
+      font-size: $fs-6xl;
+    }
+  }
+
+  .hero-subtitle {
+    @include body-text($fs-lg);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: $lh-relaxed;
+  }
+
+  .hero-scroll-indicator {
+    position: absolute;
+    bottom: $space-10;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    text-align: center;
+
+    span {
+      @include label-text;
+      font-size: 0.65rem;
+      display: block;
+      margin-bottom: $space-2;
+    }
+
+    .scroll-arrow {
+      width: 20px;
+      height: 20px;
+      border-right: 2px solid $color-primary;
+      border-bottom: 2px solid $color-primary;
+      transform: rotate(45deg);
+      margin: 0 auto;
+      animation: scrollBounce 2s infinite;
+    }
+  }
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: rotate(45deg) translateY(0); opacity: 1; }
+  50% { transform: rotate(45deg) translateY(8px); opacity: 0.5; }
+}
+
+// =====================
+// SERVICES CARDS
+// =====================
+.services-cards {
+  @include section-padding;
+  background: $color-bg-darker;
+  position: relative;
+
+  .container {
+    @include container;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: $space-16;
+
+    .section-label {
+      @include label-text;
+      display: block;
+      margin-bottom: $space-3;
+    }
+
+    .section-title {
+      @include heading($fs-3xl);
+      margin-bottom: $space-6;
+
+      @include respond-to('md') {
+        font-size: $fs-4xl;
+      }
+    }
+
+    .gold-line {
+      @include gold-line(80px);
+      margin: 0 auto;
+    }
+  }
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $space-8;
+
+  @include respond-to('md') {
+    grid-template-columns: repeat(2, 1fr);
+    gap: $space-10;
+  }
+}
+
+.service-card {
+  position: relative;
+  border-radius: $radius-xl;
+  overflow: hidden;
+  opacity: 0;
+
+  .card-glow {
+    position: absolute;
+    inset: -1px;
+    border-radius: $radius-xl;
+    background: transparent;
+    transition: background $transition-slow;
+    z-index: 0;
+  }
+
+  &:hover .card-glow {
+    background: linear-gradient(135deg, rgba($color-primary, 0.4), rgba($color-accent, 0.2), rgba($color-primary, 0.4));
+  }
+
+  .card-inner {
+    position: relative;
+    z-index: 1;
+    @include glass(rgba(22, 33, 62, 0.5));
+    border-radius: $radius-xl;
+    padding: $space-10;
+    height: 100%;
+    @include flex-column;
+    transition: all $transition-base;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+
+    &:hover {
+      border-color: rgba($color-primary, 0.4);
+      background: rgba(22, 33, 62, 0.7);
+    }
+  }
+
+  .card-header {
+    @include flex-between;
+    margin-bottom: $space-6;
+  }
+
+  .card-icon {
+    font-size: 3rem;
+    line-height: 1;
+    filter: drop-shadow(0 0 15px rgba($color-primary, 0.3));
+  }
+
+  .card-number {
+    font-family: $font-heading;
+    font-size: $fs-5xl;
+    font-weight: $fw-black;
+    color: rgba($color-primary, 0.1);
+    line-height: 1;
+    user-select: none;
+  }
+
+  .card-title {
+    @include heading($fs-xl);
+    margin-bottom: $space-4;
+    transition: color $transition-base;
+
+    @include respond-to('md') {
+      font-size: $fs-2xl;
+    }
+  }
+
+  &:hover .card-title {
+    @include text-gradient;
+  }
+
+  .card-description {
+    @include body-text($fs-base);
+    margin-bottom: $space-6;
+    @include line-clamp(3);
+    flex-grow: 0;
+  }
+
+  .card-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 $space-8;
+    flex-grow: 1;
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: $space-3;
+      padding: $space-2 0;
+      font-family: $font-body;
+      font-size: $fs-sm;
+      color: $color-text-secondary;
+      opacity: 0;
+
+      .feature-check {
+        color: $color-primary;
+        font-size: $fs-xs;
+        flex-shrink: 0;
+      }
+    }
+  }
+
+  .card-btn {
+    @include btn-outline;
+    align-self: flex-start;
+    font-size: $fs-sm;
+    padding: $space-3 $space-6;
+
+    .btn-arrow {
+      transition: transform $transition-base;
+    }
+
+    &:hover .btn-arrow {
+      transform: translateX(4px);
+    }
+  }
+}
+
+// =====================
+// CTA SECTION
+// =====================
+.cta-section {
+  @include section-padding;
+  background: $color-bg-dark;
+  position: relative;
+  overflow: hidden;
+
+  .container {
+    @include container;
+  }
+
+  .cta-glow {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: $radius-full;
+    filter: blur(120px);
+    opacity: 0.15;
+
+    &--left {
+      top: 0;
+      left: -100px;
+      background: $color-primary;
+    }
+
+    &--right {
+      bottom: 0;
+      right: -100px;
+      background: $color-accent;
+    }
+  }
+
+  .cta-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    @include glass;
+    border-radius: $radius-2xl;
+    padding: $space-16 $space-8;
+    max-width: 700px;
+    margin: 0 auto;
+    border: 1px solid rgba($color-primary, 0.15);
+
+    @include respond-to('md') {
+      padding: $space-20 $space-16;
+    }
+  }
+
+  .cta-label {
+    @include label-text;
+    display: block;
+    margin-bottom: $space-4;
+  }
+
+  .cta-title {
+    @include heading($fs-3xl);
+    margin-bottom: $space-4;
+    @include text-gradient;
+
+    @include respond-to('md') {
+      font-size: $fs-4xl;
+    }
+  }
+
+  .cta-text {
+    @include body-text;
+    max-width: 500px;
+    margin: 0 auto $space-8;
+  }
+
+  .cta-btn {
+    @include btn-primary;
+    font-size: $fs-md;
+    padding: $space-5 $space-10;
+
+    .btn-icon {
+      font-size: $fs-lg;
+    }
+  }
+}

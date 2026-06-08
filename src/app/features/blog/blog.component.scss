@@ -1,0 +1,390 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// ============================================
+// HERO SECTION
+// ============================================
+.hero {
+  position: relative;
+  min-height: 75vh;
+  @include flex-center;
+  overflow: hidden;
+  background: $color-bg-dark;
+
+  &__bg-pattern {
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 25% 30%, rgba($color-primary, 0.07) 0%, transparent 50%),
+      radial-gradient(circle at 75% 70%, rgba($color-accent, 0.05) 0%, transparent 40%),
+      radial-gradient(circle at 50% 50%, rgba($color-primary, 0.03) 0%, transparent 70%);
+    z-index: 0;
+  }
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba($color-bg-dark, 0.3) 0%, rgba($color-bg-dark, 0.85) 100%);
+    z-index: 1;
+  }
+
+  &__content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: $space-8;
+    max-width: 900px;
+  }
+
+  &__label {
+    @include label-text;
+    display: inline-block;
+    padding: $space-2 $space-6;
+    border: 1px solid rgba($color-primary, 0.3);
+    border-radius: $radius-pill;
+    margin-bottom: $space-8;
+  }
+
+  &__title {
+    @include heading($fs-5xl);
+    margin-bottom: $space-6;
+    line-height: 1.15;
+
+    @include respond-to('md') { font-size: $fs-6xl; }
+
+    &--gold {
+      @include text-gradient($gradient-gold);
+    }
+  }
+
+  &__subtitle {
+    @include body-text($fs-lg);
+    max-width: 700px;
+    margin: 0 auto $space-10;
+    color: $color-text-muted;
+  }
+
+  &__categories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: $space-3;
+  }
+
+  &__category-pill {
+    padding: $space-2 $space-5;
+    background: rgba($color-bg-card, 0.5);
+    border: 1px solid $color-border-light;
+    border-radius: $radius-pill;
+    color: $color-text-muted;
+    font-family: $font-body;
+    font-size: $fs-sm;
+    font-weight: $fw-medium;
+    cursor: pointer;
+    transition: all $transition-base;
+    white-space: nowrap;
+
+    &:hover {
+      border-color: rgba($color-primary, 0.4);
+      color: $color-text-primary;
+      background: rgba($color-primary, 0.08);
+    }
+
+    &--active {
+      background: $gradient-primary;
+      color: $color-bg-dark;
+      border-color: transparent;
+      font-weight: $fw-semibold;
+
+      &:hover {
+        color: $color-bg-dark;
+        background: $gradient-primary;
+      }
+    }
+  }
+}
+
+// ============================================
+// BLOG GRID SECTION
+// ============================================
+.blog {
+  @include section-padding;
+  background: $color-bg-darker;
+
+  &__container {
+    @include container;
+  }
+
+  &__meta {
+    margin-bottom: $space-8;
+  }
+
+  &__count {
+    @include body-text($fs-base);
+    color: $color-text-muted;
+
+    strong {
+      color: $color-primary;
+      font-weight: $fw-semibold;
+    }
+  }
+
+  &__grid {
+    @include grid(1, $space-8);
+
+    @include respond-to('md') { grid-template-columns: repeat(2, 1fr); }
+    @include respond-to('lg') { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  &__card {
+    background: $gradient-card;
+    border: 1px solid $color-border-light;
+    border-radius: $radius-xl;
+    overflow: hidden;
+    transition: all $transition-base;
+    @include flex-column;
+
+    &:hover {
+      transform: translateY(-8px);
+      box-shadow: $shadow-lg, 0 0 40px rgba($color-primary, 0.08);
+      border-color: $color-border;
+
+      .blog__thumbnail-icon {
+        transform: scale(1.1);
+      }
+
+      .blog__card-arrow {
+        transform: translateX(4px);
+      }
+    }
+  }
+
+  &__thumbnail {
+    position: relative;
+    aspect-ratio: 16/10;
+    @include flex-center;
+    overflow: hidden;
+  }
+
+  &__thumbnail-icon {
+    font-size: 3rem;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+    transition: transform $transition-base;
+    opacity: 0.9;
+  }
+
+  &__badge {
+    position: absolute;
+    top: $space-4;
+    left: $space-4;
+    padding: $space-1 $space-3;
+    border-radius: $radius-pill;
+    font-family: $font-body;
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: $ls-wide;
+  }
+
+  &__card-body {
+    padding: $space-6;
+    @include flex-column;
+    flex: 1;
+  }
+
+  &__card-title {
+    font-family: $font-heading;
+    font-size: $fs-lg;
+    font-weight: $fw-bold;
+    color: $color-text-primary;
+    margin-bottom: $space-3;
+    line-height: $lh-snug;
+    @include line-clamp(2);
+  }
+
+  &__card-excerpt {
+    @include body-text($fs-sm);
+    color: $color-text-muted;
+    @include line-clamp(2);
+    margin-bottom: $space-6;
+    flex: 1;
+  }
+
+  &__card-footer {
+    display: flex;
+    flex-direction: column;
+    gap: $space-4;
+    padding-top: $space-4;
+    border-top: 1px solid $color-border-light;
+  }
+
+  &__card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-3;
+    align-items: center;
+  }
+
+  &__card-author {
+    display: flex;
+    align-items: center;
+    gap: $space-1;
+    font-family: $font-body;
+    font-size: $fs-xs;
+    color: $color-text-muted;
+  }
+
+  &__card-author-icon {
+    font-size: $fs-sm;
+  }
+
+  &__card-date,
+  &__card-read-time {
+    font-family: $font-body;
+    font-size: $fs-xs;
+    color: $color-text-muted;
+
+    &::before {
+      content: '·';
+      margin-right: $space-1;
+      color: $color-primary;
+    }
+  }
+
+  &__card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2;
+    font-family: $font-body;
+    font-size: $fs-sm;
+    font-weight: $fw-semibold;
+    color: $color-primary;
+    text-decoration: none;
+    transition: all $transition-fast;
+    align-self: flex-start;
+
+    &:hover {
+      color: $color-primary-light;
+    }
+  }
+
+  &__card-arrow {
+    transition: transform $transition-fast;
+    font-size: $fs-base;
+  }
+
+  // Empty State
+  &__empty {
+    @include flex-center;
+    @include flex-column;
+    gap: $space-4;
+    padding: $space-20 $space-8;
+    text-align: center;
+  }
+
+  &__empty-icon {
+    font-size: 4rem;
+    opacity: 0.5;
+  }
+
+  &__empty-title {
+    @include heading($fs-2xl);
+    color: $color-text-muted;
+  }
+
+  &__empty-text {
+    @include body-text($fs-md);
+    color: $color-text-muted;
+    max-width: 400px;
+  }
+
+  &__empty-btn {
+    @include btn-outline;
+    margin-top: $space-4;
+  }
+}
+
+// ============================================
+// NEWSLETTER SECTION
+// ============================================
+.newsletter {
+  @include section-padding;
+  background: $color-bg-dark;
+
+  &__container {
+    @include container;
+    max-width: 700px;
+  }
+
+  &__content {
+    @include glass;
+    border-radius: $radius-2xl;
+    padding: $space-12 $space-8;
+    text-align: center;
+
+    @include respond-to('md') { padding: $space-16 $space-12; }
+  }
+
+  &__icon {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: $space-6;
+  }
+
+  &__title {
+    @include heading($fs-2xl);
+    margin-bottom: $space-4;
+
+    @include respond-to('md') { font-size: $fs-3xl; }
+
+    &--gold {
+      @include text-gradient($gradient-gold);
+    }
+  }
+
+  &__text {
+    @include body-text($fs-md);
+    color: $color-text-muted;
+    max-width: 500px;
+    margin: 0 auto $space-8;
+  }
+
+  &__form {
+    display: flex;
+    gap: $space-3;
+    max-width: 480px;
+    margin: 0 auto;
+    flex-direction: column;
+
+    @include respond-to('sm') { flex-direction: row; }
+  }
+
+  &__input {
+    flex: 1;
+    padding: $space-4 $space-5;
+    background: rgba($color-bg-card, 0.6);
+    border: 1px solid $color-border-light;
+    border-radius: $radius-pill;
+    color: $color-text-primary;
+    font-family: $font-body;
+    font-size: $fs-base;
+    outline: none;
+    transition: all $transition-base;
+
+    &::placeholder {
+      color: $color-text-muted;
+    }
+
+    &:focus {
+      border-color: rgba($color-primary, 0.5);
+      box-shadow: 0 0 0 3px rgba($color-primary, 0.1);
+    }
+  }
+
+  &__btn {
+    @include btn-primary;
+    padding: $space-4 $space-8;
+    white-space: nowrap;
+  }
+}

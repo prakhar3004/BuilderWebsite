@@ -1,0 +1,51 @@
+<nav #navbar class="navbar" [class.scrolled]="isScrolled" [class.menu-open]="isMobileMenuOpen">
+  <div class="navbar-container">
+    <!-- Logo -->
+    <a routerLink="/" class="logo" (click)="closeMobileMenu()">
+      <span class="logo-icon">🏗️</span>
+      <span class="logo-text">Build<span class="logo-accent">Nest</span></span>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <ul class="nav-links desktop-nav">
+      <li *ngFor="let link of navLinks" class="nav-item">
+        <a [routerLink]="link.route"
+           routerLinkActive="active"
+           [routerLinkActiveOptions]="{ exact: link.route === '/' }"
+           class="nav-link">
+          {{ link.label }}
+        </a>
+      </li>
+    </ul>
+
+    <!-- CTA Button -->
+    <a routerLink="/contact" class="nav-cta desktop-nav">
+      Get Free Quote
+    </a>
+
+    <!-- Mobile Hamburger -->
+    <button class="hamburger" [class.active]="isMobileMenuOpen" (click)="toggleMobileMenu()">
+      <span class="line"></span>
+      <span class="line"></span>
+      <span class="line"></span>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" [class.open]="isMobileMenuOpen">
+    <ul class="mobile-nav-links">
+      <li *ngFor="let link of navLinks" class="nav-item">
+        <a [routerLink]="link.route"
+           routerLinkActive="active"
+           [routerLinkActiveOptions]="{ exact: link.route === '/' }"
+           class="nav-link"
+           (click)="closeMobileMenu()">
+          {{ link.label }}
+        </a>
+      </li>
+    </ul>
+    <a routerLink="/contact" class="nav-cta mobile-cta" (click)="closeMobileMenu()">
+      Get Free Quote
+    </a>
+  </div>
+</nav>

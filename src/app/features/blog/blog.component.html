@@ -1,0 +1,105 @@
+<!-- ============================================ -->
+<!-- BuildNest — Blog Page                        -->
+<!-- ============================================ -->
+
+<!-- HERO SECTION -->
+<section class="hero" #heroSection>
+  <div class="hero__bg-pattern"></div>
+  <div class="hero__overlay"></div>
+
+  <div class="hero__content">
+    <span class="hero__label">Our Blog</span>
+    <h1 class="hero__title">
+      Construction Tips<br/>
+      & <span class="hero__title--gold">Insights</span>
+    </h1>
+    <p class="hero__subtitle">
+      Expert advice, industry trends, and practical guides to help you make informed decisions
+      about your home construction, renovation, and real estate investments.
+    </p>
+
+    <!-- Category Filter Pills -->
+    <div class="hero__categories">
+      <button
+        class="hero__category-pill"
+        *ngFor="let cat of categories"
+        [class.hero__category-pill--active]="activeCategory === cat"
+        (click)="filterByCategory(cat)"
+      >
+        {{ cat }}
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG GRID SECTION -->
+<section class="blog" #blogGrid>
+  <div class="blog__container">
+    <!-- Results Count -->
+    <div class="blog__meta">
+      <span class="blog__count">
+        Showing <strong>{{ filteredPosts.length }}</strong> {{ filteredPosts.length === 1 ? 'article' : 'articles' }}
+        <span *ngIf="activeCategory !== 'All'"> in <strong>{{ activeCategory }}</strong></span>
+      </span>
+    </div>
+
+    <!-- Blog Cards Grid -->
+    <div class="blog__grid" *ngIf="filteredPosts.length > 0">
+      <article class="blog__card" *ngFor="let post of filteredPosts" #blogCard>
+        <!-- Thumbnail -->
+        <div class="blog__thumbnail" [style.background]="getThumbnailGradient(post.category)">
+          <span class="blog__thumbnail-icon">{{ getCategoryIcon(post.category) }}</span>
+          <span class="blog__badge" [style.background-color]="getBadgeColor(post.category)">
+            {{ post.category }}
+          </span>
+        </div>
+
+        <!-- Card Body -->
+        <div class="blog__card-body">
+          <h3 class="blog__card-title">{{ post.title }}</h3>
+          <p class="blog__card-excerpt">{{ post.excerpt }}</p>
+
+          <div class="blog__card-footer">
+            <div class="blog__card-meta">
+              <span class="blog__card-author">
+                <span class="blog__card-author-icon">✍️</span>
+                {{ post.author }}
+              </span>
+              <span class="blog__card-date">{{ formatDate(post.publishedAt) }}</span>
+              <span class="blog__card-read-time">{{ post.readTime }} min read</span>
+            </div>
+            <a class="blog__card-link" [routerLink]="['/blog', post.slug]">
+              Read More
+              <span class="blog__card-arrow">→</span>
+            </a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Empty State -->
+    <div class="blog__empty" *ngIf="filteredPosts.length === 0">
+      <span class="blog__empty-icon">📝</span>
+      <h3 class="blog__empty-title">No articles found</h3>
+      <p class="blog__empty-text">No blog posts found in the "{{ activeCategory }}" category. Try another category.</p>
+      <button class="blog__empty-btn" (click)="filterByCategory('All')">View All Articles</button>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER CTA -->
+<section class="newsletter">
+  <div class="newsletter__container">
+    <div class="newsletter__content">
+      <span class="newsletter__icon">📬</span>
+      <h2 class="newsletter__title">Stay Updated with <span class="newsletter__title--gold">BuildNest</span></h2>
+      <p class="newsletter__text">
+        Get the latest construction tips, market insights, and exclusive offers delivered to your inbox.
+      </p>
+      <div class="newsletter__form">
+        <input class="newsletter__input" type="email" placeholder="Enter your email address" />
+        <button class="newsletter__btn">Subscribe</button>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,77 @@
+<section class="services-hero" #heroSection>
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-label-line" #heroLine></div>
+    <span class="hero-label">What We Offer</span>
+    <h1 class="hero-title" #heroTitle>Our Services</h1>
+    <p class="hero-subtitle" #heroSubtitle>
+      From dream to doorstep — comprehensive construction, premium plots,
+      ready homes, and expert renovation services tailored to your vision.
+    </p>
+  </div>
+  <div class="hero-scroll-indicator">
+    <span>Scroll to Explore</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<section class="services-cards" #cardsSection>
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Explore Our Expertise</span>
+      <h2 class="section-title">Building Excellence<br>in Every Domain</h2>
+      <hr class="gold-line" />
+    </div>
+
+    <div class="cards-grid">
+      <div
+        class="service-card"
+        *ngFor="let service of services; let i = index"
+        #serviceCard
+      >
+        <div class="card-glow"></div>
+        <div class="card-inner">
+          <div class="card-header">
+            <span class="card-icon">{{ service.icon }}</span>
+            <span class="card-number">0{{ i + 1 }}</span>
+          </div>
+
+          <h3 class="card-title">{{ service.title }}</h3>
+          <p class="card-description">{{ service.description }}</p>
+
+          <ul class="card-features">
+            <li class="feature-item" *ngFor="let feature of service.features">
+              <span class="feature-check">✦</span>
+              <span>{{ feature }}</span>
+            </li>
+          </ul>
+
+          <a class="card-btn" [routerLink]="service.route">
+            <span>Explore</span>
+            <span class="btn-arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section" #ctaSection>
+  <div class="cta-glow cta-glow--left"></div>
+  <div class="cta-glow cta-glow--right"></div>
+  <div class="container">
+    <div class="cta-content">
+      <span class="cta-label">Have Something Unique in Mind?</span>
+      <h2 class="cta-title">Need a Custom Service?</h2>
+      <p class="cta-text">
+        Every project is unique. Let's discuss your specific requirements
+        and craft a tailored solution just for you.
+      </p>
+      <a routerLink="/contact" class="cta-btn">
+        <span>Contact Us</span>
+        <span class="btn-icon">📩</span>
+      </a>
+    </div>
+  </div>
+</section>

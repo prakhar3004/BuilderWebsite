@@ -1,0 +1,159 @@
+<!-- ============================================ -->
+<!-- BuildNest — About Us Page                    -->
+<!-- ============================================ -->
+
+<!-- HERO SECTION -->
+<section class="hero" #heroSection>
+  <div class="hero__bg-pattern"></div>
+  <div class="hero__overlay"></div>
+  <div class="hero__content">
+    <span class="hero__label">Our Story</span>
+    <h1 class="hero__title">
+      Building <span class="hero__title--gold">Dreams</span><br/>
+      Since 2010
+    </h1>
+    <p class="hero__subtitle">
+      From a small team with a big vision to one of the region's most trusted construction companies —
+      we've been transforming blueprints into beautiful homes for over 15 years.
+    </p>
+    <a routerLink="/contact" class="hero__cta">Start Your Journey</a>
+    <div class="hero__scroll-indicator">
+      <span class="hero__scroll-text">Scroll to Explore</span>
+      <div class="hero__scroll-line"></div>
+    </div>
+  </div>
+</section>
+
+<!-- STORY SECTION -->
+<section class="story" #storySection>
+  <div class="story__container">
+    <div class="story__content">
+      <span class="story__label">Who We Are</span>
+      <h2 class="story__title">Crafting Homes,<br/>Building Legacies</h2>
+      <div class="story__text">
+        <p>
+          BuildNest was born in 2010 from a simple yet powerful belief — every family deserves a home
+          built with integrity, quality, and care. Our founder, Vikram Khanna, started with a small
+          team of 5 passionate engineers and a commitment to doing things right.
+        </p>
+        <p>
+          Over the past 15 years, we've grown into a full-spectrum construction and real estate company,
+          but our core values remain unchanged. We still treat every project as if it were our own home.
+          Every brick we lay, every beam we raise, carries the weight of our reputation and the trust
+          our clients place in us.
+        </p>
+        <p>
+          <strong>Our Mission:</strong> To deliver world-class construction with complete transparency,
+          making the dream of homeownership accessible and joyful for every family.
+        </p>
+        <p>
+          <strong>Our Vision:</strong> To be India's most trusted home construction partner, pioneering
+          sustainable building practices and smart home technologies that define the future of living.
+        </p>
+      </div>
+      <div class="story__stats">
+        <div class="story__stat">
+          <span class="story__stat-value" data-value="500" data-suffix="+">0</span>
+          <span class="story__stat-label">Projects Delivered</span>
+        </div>
+        <div class="story__stat">
+          <span class="story__stat-value" data-value="15" data-suffix="+">0</span>
+          <span class="story__stat-label">Years Experience</span>
+        </div>
+        <div class="story__stat">
+          <span class="story__stat-value" data-value="1200" data-suffix="+">0</span>
+          <span class="story__stat-label">Happy Families</span>
+        </div>
+      </div>
+    </div>
+    <div class="story__image-wrapper">
+      <div class="story__image-placeholder">
+        <div class="story__image-icon">🏗️</div>
+        <span class="story__image-text">Our Journey</span>
+      </div>
+      <div class="story__image-accent"></div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES SECTION -->
+<section class="values" #valuesSection>
+  <div class="values__container">
+    <div class="values__header">
+      <span class="values__label">What Drives Us</span>
+      <h2 class="values__title">Our Core Values</h2>
+      <p class="values__subtitle">
+        These principles guide every decision we make, every home we build, and every relationship we nurture.
+      </p>
+    </div>
+    <div class="values__grid">
+      <div class="values__card" *ngFor="let value of values" #valueCard>
+        <div class="values__card-icon">{{ value.icon }}</div>
+        <h3 class="values__card-title">{{ value.title }}</h3>
+        <p class="values__card-desc">{{ value.description }}</p>
+        <div class="values__card-line"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM SECTION -->
+<section class="team" #teamSection>
+  <div class="team__container">
+    <div class="team__header">
+      <span class="team__label">The People Behind BuildNest</span>
+      <h2 class="team__title">Meet Our Team</h2>
+      <p class="team__subtitle">
+        A team of passionate professionals dedicated to turning your construction dreams into reality.
+      </p>
+    </div>
+    <div class="team__grid">
+      <div class="team__card" *ngFor="let member of team" #teamCard>
+        <div class="team__avatar" [style.background]="member.gradient">
+          <span class="team__initials">{{ member.initials }}</span>
+        </div>
+        <h3 class="team__name">{{ member.name }}</h3>
+        <span class="team__role">{{ member.role }}</span>
+        <p class="team__desc">{{ member.description }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MILESTONES TIMELINE SECTION -->
+<section class="timeline" #timelineSection>
+  <div class="timeline__container">
+    <div class="timeline__header">
+      <span class="timeline__label">Our Journey</span>
+      <h2 class="timeline__title">Key Milestones</h2>
+    </div>
+    <div class="timeline__track">
+      <div class="timeline__line" #timelineLine></div>
+      <div class="timeline__items">
+        <div class="timeline__item" *ngFor="let milestone of milestones; let i = index; let odd = odd" #milestoneItem
+             [class.timeline__item--alt]="odd">
+          <div class="timeline__dot"></div>
+          <div class="timeline__card">
+            <span class="timeline__year">{{ milestone.year }}</span>
+            <h3 class="timeline__card-title">{{ milestone.title }}</h3>
+            <p class="timeline__card-desc">{{ milestone.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA SECTION -->
+<section class="about-cta">
+  <div class="about-cta__container">
+    <h2 class="about-cta__title">Ready to Build Your <span class="about-cta__title--gold">Dream Home</span>?</h2>
+    <p class="about-cta__text">
+      Let's start a conversation. Our team is ready to bring your vision to life.
+    </p>
+    <div class="about-cta__actions">
+      <a routerLink="/contact" class="about-cta__btn about-cta__btn--primary">Get a Free Quote</a>
+      <a routerLink="/projects" class="about-cta__btn about-cta__btn--outline">View Our Projects</a>
+    </div>
+  </div>
+</section>

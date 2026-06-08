@@ -1,0 +1,1035 @@
+// ═══════════════════════════════════════════════════════════════
+// BuildNest — HOME PAGE Styles
+// Award-winning dark theme with golden/orange accents
+// ═══════════════════════════════════════════════════════════════
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// ─────────────────────────────────
+// SHARED — Section Header
+// ─────────────────────────────────
+.section-header {
+  margin-bottom: $space-16;
+
+  &--center {
+    text-align: center;
+  }
+
+  &__label {
+    @include label-text;
+    display: inline-block;
+    margin-bottom: $space-3;
+  }
+
+  &__title {
+    @include heading($fs-4xl);
+    margin-bottom: $space-4;
+
+    @include respond-to('md') {
+      font-size: $fs-5xl;
+    }
+  }
+
+  &__line {
+    @include gold-line(80px);
+    margin: 0 auto $space-6;
+  }
+
+  &__desc {
+    @include body-text($fs-md);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}
+
+// ─────────────────────────────────
+// SHARED — Buttons
+// ─────────────────────────────────
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  font-family: $font-body;
+  font-weight: $fw-semibold;
+  text-decoration: none;
+  border-radius: $radius-pill;
+  cursor: pointer;
+  transition: all $transition-base;
+  position: relative;
+  overflow: hidden;
+  font-size: $fs-base;
+  padding: $space-4 $space-8;
+
+  &__icon {
+    font-size: 1.1em;
+  }
+
+  &--primary {
+    @include btn-primary;
+  }
+
+  &--outline {
+    @include btn-outline;
+  }
+
+  &--lg {
+    padding: $space-5 $space-10;
+    font-size: $fs-lg;
+  }
+
+  .arrow {
+    transition: transform $transition-base;
+  }
+
+  &:hover .arrow {
+    transform: translateX(4px);
+  }
+}
+
+
+// ═══════════════════════════════════════════════════════════════
+// 1. HERO SECTION
+// ═══════════════════════════════════════════════════════════════
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 20% 50%, rgba($color-primary, 0.08) 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 20%, rgba($color-accent, 0.06) 0%, transparent 50%),
+              radial-gradient(ellipse at 50% 80%, rgba($color-bg-card, 0.3) 0%, transparent 50%),
+              $color-bg-dark;
+  padding: $space-20 $space-6;
+
+  @include respond-to('md') {
+    padding: 0 $space-8;
+  }
+
+  // ── Blueprint Grid ──
+  &__grid-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  // ── Floating Shapes Container ──
+  &__shapes {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  // ── Content ──
+  &__content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    max-width: 900px;
+  }
+
+  &__label {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2;
+    padding: $space-2 $space-5;
+    @include glass;
+    border-radius: $radius-pill;
+    margin-bottom: $space-8;
+    font-family: $font-body;
+    font-size: $fs-sm;
+    font-weight: $fw-medium;
+    color: $color-primary;
+    letter-spacing: $ls-wide;
+    text-transform: uppercase;
+
+    &-icon {
+      font-size: $fs-md;
+      animation: float 3s ease-in-out infinite;
+    }
+  }
+
+  &__heading {
+    @include heading($fs-4xl);
+    margin-bottom: $space-6;
+
+    @include respond-to('sm') {
+      font-size: $fs-5xl;
+    }
+
+    @include respond-to('md') {
+      font-size: $fs-6xl;
+    }
+
+    @include respond-to('xl') {
+      font-size: $fs-hero;
+    }
+
+    &-line {
+      display: block;
+      color: $color-text-primary;
+      margin-bottom: $space-2;
+    }
+
+    &-word {
+      display: inline-block;
+      @include text-gradient($gradient-primary);
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: $gradient-primary;
+        border-radius: $radius-pill;
+
+        @include respond-to('md') {
+          height: 5px;
+        }
+      }
+    }
+  }
+
+  &__subtitle {
+    @include body-text($fs-md);
+    max-width: 650px;
+    margin: 0 auto $space-10;
+    color: $color-text-muted;
+
+    @include respond-to('md') {
+      font-size: $fs-lg;
+    }
+  }
+
+  &__cta {
+    display: flex;
+    gap: $space-4;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  // ── Scroll Indicator ──
+  &__scroll-indicator {
+    position: absolute;
+    bottom: $space-10;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $space-3;
+    z-index: 10;
+
+    @include mobile-only {
+      display: none;
+    }
+
+    .scroll-line {
+      width: 2px;
+      height: 40px;
+      background: $gradient-primary;
+      border-radius: $radius-pill;
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    span {
+      font-family: $font-body;
+      font-size: $fs-xs;
+      color: $color-text-muted;
+      letter-spacing: $ls-wider;
+      text-transform: uppercase;
+    }
+  }
+}
+
+// Scroll pulse animation
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(1.3); }
+}
+
+// ── Grid Lines ──
+.grid-line {
+  position: absolute;
+  background: rgba($color-primary, 0.06);
+
+  &--horizontal {
+    left: 0;
+    width: 100%;
+    height: 1px;
+  }
+
+  &--vertical {
+    top: 0;
+    height: 100%;
+    width: 1px;
+  }
+}
+
+// ── Floating Shapes ──
+.floating-shape {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+
+  &--square {
+    border: 2px solid rgba($color-primary, 0.3);
+    border-radius: $radius-sm;
+  }
+
+  &--triangle {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-color: transparent transparent rgba($color-accent, 0.2) transparent;
+    border-width: 0 25px 50px 25px;
+
+    &-sm {
+      border-width: 0 20px 40px 20px;
+    }
+
+    &-xs {
+      border-width: 0 17px 35px 17px;
+    }
+
+    &-md {
+      border-width: 0 22px 45px 22px;
+    }
+  }
+
+  &--icon {
+    font-size: $fs-3xl;
+    opacity: 0;
+  }
+}
+
+
+// ═══════════════════════════════════════════════════════════════
+// 2. STATS SECTION
+// ═══════════════════════════════════════════════════════════════
+.stats {
+  @include section-padding;
+  background: $color-bg-darker;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba($color-primary, 0.3), transparent);
+  }
+
+  &__container {
+    @include container;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $space-6;
+
+    @include respond-to('md') {
+      grid-template-columns: repeat(4, 1fr);
+      gap: $space-8;
+    }
+  }
+}
+
+.stat-card {
+  @include glass;
+  @include flex-column;
+  align-items: center;
+  text-align: center;
+  padding: $space-8 $space-6;
+  border-radius: $radius-xl;
+  position: relative;
+  overflow: hidden;
+  transition: all $transition-base;
+
+  &:hover {
+    transform: translateY(-6px);
+    border-color: rgba($color-primary, 0.3);
+
+    .stat-card__glow {
+      opacity: 1;
+    }
+  }
+
+  &__icon {
+    font-size: $fs-3xl;
+    margin-bottom: $space-4;
+  }
+
+  &__value {
+    display: flex;
+    align-items: baseline;
+    gap: $space-1;
+    margin-bottom: $space-2;
+  }
+
+  &__number {
+    @include heading($fs-4xl);
+    @include text-gradient;
+
+    @include respond-to('md') {
+      font-size: $fs-5xl;
+    }
+  }
+
+  &__suffix {
+    @include heading($fs-2xl);
+    color: $color-primary;
+  }
+
+  &__label {
+    @include body-text($fs-sm);
+    color: $color-text-muted;
+    font-weight: $fw-medium;
+  }
+
+  &__glow {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 40px;
+    background: rgba($color-primary, 0.15);
+    filter: blur(20px);
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity $transition-base;
+  }
+}
+
+
+// ═══════════════════════════════════════════════════════════════
+// 3. SERVICES SECTION
+// ═══════════════════════════════════════════════════════════════
+.services {
+  @include section-padding;
+  background: $color-bg-dark;
+  position: relative;
+
+  &__container {
+    @include container;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $space-6;
+
+    @include respond-to('sm') {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include respond-to('xl') {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+}
+
+.service-card {
+  @include card;
+  @include flex-column;
+  padding: $space-8;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: $gradient-primary;
+    transform: scaleX(0);
+    transition: transform $transition-base;
+    transform-origin: left;
+  }
+
+  &:hover {
+    &::before {
+      transform: scaleX(1);
+    }
+
+    .service-card__icon-wrap {
+      transform: scale(1.1);
+    }
+
+    .service-card__icon-glow {
+      opacity: 1;
+    }
+
+    .service-card__link .arrow {
+      transform: translateX(6px);
+    }
+  }
+
+  &__icon-wrap {
+    position: relative;
+    width: 70px;
+    height: 70px;
+    @include flex-center;
+    margin-bottom: $space-6;
+    transition: transform $transition-spring;
+  }
+
+  &__icon {
+    font-size: $fs-4xl;
+    position: relative;
+    z-index: 2;
+  }
+
+  &__icon-glow {
+    position: absolute;
+    inset: -8px;
+    background: rgba($color-primary, 0.15);
+    border-radius: $radius-full;
+    filter: blur(12px);
+    opacity: 0;
+    transition: opacity $transition-base;
+  }
+
+  &__title {
+    @include heading($fs-xl);
+    margin-bottom: $space-3;
+  }
+
+  &__desc {
+    @include body-text($fs-sm);
+    color: $color-text-muted;
+    margin-bottom: $space-6;
+    @include line-clamp(3);
+  }
+
+  &__features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 $space-6;
+    @include flex-column;
+    gap: $space-2;
+    flex-grow: 1;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: $space-2;
+      font-family: $font-body;
+      font-size: $fs-sm;
+      color: $color-text-secondary;
+    }
+
+    .feature-check {
+      color: $color-primary;
+      font-size: $fs-xs;
+    }
+  }
+
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2;
+    font-family: $font-body;
+    font-weight: $fw-semibold;
+    font-size: $fs-sm;
+    color: $color-primary;
+    text-decoration: none;
+    transition: all $transition-base;
+    margin-top: auto;
+
+    .arrow {
+      transition: transform $transition-base;
+    }
+
+    &:hover {
+      color: $color-primary-light;
+    }
+  }
+}
+
+
+// ═══════════════════════════════════════════════════════════════
+// 4. FEATURED PROJECTS SECTION
+// ═══════════════════════════════════════════════════════════════
+.projects {
+  @include section-padding;
+  background: $color-bg-darker;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba($color-primary, 0.3), transparent);
+  }
+
+  &__container {
+    @include container;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $space-8;
+
+    @include respond-to('md') {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  &__cta {
+    text-align: center;
+    margin-top: $space-12;
+  }
+}
+
+.project-card {
+  background: $gradient-card;
+  border: 1px solid $color-border-light;
+  border-radius: $radius-xl;
+  overflow: hidden;
+  transition: all $transition-base;
+
+  &:hover {
+    transform: translateY(-8px);
+    border-color: $color-border;
+    box-shadow: $shadow-glow;
+
+    .project-card__image {
+      transform: scale(1.05);
+    }
+  }
+
+  &__image-wrap {
+    position: relative;
+    height: 220px;
+    overflow: hidden;
+
+    @include respond-to('md') {
+      height: 200px;
+    }
+
+    @include respond-to('xl') {
+      height: 240px;
+    }
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    @include flex-center;
+    transition: transform $transition-slow;
+  }
+
+  &__image-inner {
+    @include flex-center;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__image-icon {
+    font-size: 4rem;
+    opacity: 0.6;
+  }
+
+  &__badge {
+    position: absolute;
+    top: $space-4;
+    right: $space-4;
+    padding: $space-1 $space-4;
+    border-radius: $radius-pill;
+    font-family: $font-body;
+    font-size: $fs-xs;
+    font-weight: $fw-bold;
+    color: $color-bg-dark;
+    letter-spacing: $ls-wide;
+    text-transform: uppercase;
+  }
+
+  &__content {
+    padding: $space-6;
+  }
+
+  &__title {
+    @include heading($fs-xl);
+    margin-bottom: $space-2;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: $space-4;
+    margin-bottom: $space-3;
+    flex-wrap: wrap;
+  }
+
+  &__location {
+    font-family: $font-body;
+    font-size: $fs-sm;
+    color: $color-text-muted;
+  }
+
+  &__year {
+    font-family: $font-body;
+    font-size: $fs-xs;
+    color: $color-primary;
+    font-weight: $fw-semibold;
+    padding: $space-1 $space-3;
+    background: rgba($color-primary, 0.1);
+    border-radius: $radius-pill;
+  }
+
+  &__desc {
+    @include body-text($fs-sm);
+    color: $color-text-muted;
+    @include line-clamp(2);
+    margin-bottom: $space-4;
+  }
+
+  &__stats {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    font-family: $font-body;
+    font-size: $fs-sm;
+    color: $color-text-secondary;
+
+    .dot {
+      color: $color-primary;
+    }
+  }
+}
+
+
+// ═══════════════════════════════════════════════════════════════
+// 5. CONSTRUCTION PROCESS SECTION
+// ═══════════════════════════════════════════════════════════════
+.process {
+  @include section-padding;
+  background: $color-bg-dark;
+  position: relative;
+  overflow: hidden;
+
+  &__container {
+    @include container;
+  }
+
+  &__timeline {
+    position: relative;
+    margin-bottom: $space-12;
+    padding: $space-8 0;
+  }
+
+  &__line {
+    display: none;
+
+    @include respond-to('md') {
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 5%;
+      right: 5%;
+      height: 2px;
+      background: linear-gradient(90deg, $color-primary, $color-accent, $color-primary);
+      transform-origin: left;
+      opacity: 0.4;
+    }
+  }
+
+  &__stages {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $space-6;
+
+    @include respond-to('sm') {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include respond-to('md') {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    @include respond-to('xl') {
+      grid-template-columns: repeat(7, 1fr);
+      gap: $space-4;
+    }
+  }
+
+  &__cta {
+    text-align: center;
+  }
+}
+
+.stage-item {
+  @include flex-column;
+  align-items: center;
+  text-align: center;
+  gap: $space-3;
+  padding: $space-4;
+  position: relative;
+
+  &__dot {
+    width: 44px;
+    height: 44px;
+    @include flex-center;
+    background: $gradient-card;
+    border: 2px solid rgba($color-primary, 0.4);
+    border-radius: $radius-full;
+    position: relative;
+    z-index: 2;
+    transition: all $transition-base;
+  }
+
+  &__number {
+    font-family: $font-body;
+    font-size: $fs-sm;
+    font-weight: $fw-bold;
+    color: $color-primary;
+  }
+
+  &__icon {
+    font-size: $fs-2xl;
+  }
+
+  &__title {
+    font-family: $font-body;
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    color: $color-text-secondary;
+    line-height: $lh-snug;
+
+    @include respond-to('md') {
+      font-size: $fs-sm;
+    }
+  }
+
+  &:hover {
+    .stage-item__dot {
+      border-color: $color-primary;
+      box-shadow: 0 0 20px rgba($color-primary, 0.3);
+      transform: scale(1.15);
+    }
+  }
+}
+
+
+// ═══════════════════════════════════════════════════════════════
+// 6. TESTIMONIALS SECTION
+// ═══════════════════════════════════════════════════════════════
+.testimonials {
+  @include section-padding;
+  background: $color-bg-darker;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba($color-primary, 0.3), transparent);
+  }
+
+  &__container {
+    @include container;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $space-6;
+
+    @include respond-to('sm') {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include respond-to('xl') {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+}
+
+.testimonial-card {
+  @include glass;
+  @include flex-column;
+  padding: $space-8;
+  border-radius: $radius-xl;
+  position: relative;
+  transition: all $transition-base;
+
+  &:hover {
+    transform: translateY(-6px);
+    border-color: rgba($color-primary, 0.3);
+    box-shadow: $shadow-glow;
+  }
+
+  &__quote-icon {
+    font-family: $font-heading;
+    font-size: 4rem;
+    line-height: 1;
+    @include text-gradient;
+    margin-bottom: $space-2;
+    opacity: 0.6;
+  }
+
+  &__content {
+    @include body-text($fs-base);
+    color: $color-text-secondary;
+    line-height: $lh-relaxed;
+    margin-bottom: $space-6;
+    flex-grow: 1;
+    font-style: italic;
+  }
+
+  &__rating {
+    margin-bottom: $space-4;
+
+    .star {
+      color: $color-primary;
+      font-size: $fs-md;
+      margin-right: 2px;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    gap: $space-4;
+    margin-top: auto;
+  }
+
+  &__avatar {
+    width: 48px;
+    height: 48px;
+    @include flex-center;
+    background: $gradient-primary;
+    border-radius: $radius-full;
+    font-family: $font-heading;
+    font-size: $fs-lg;
+    font-weight: $fw-bold;
+    color: $color-bg-dark;
+    flex-shrink: 0;
+  }
+
+  &__info {
+    @include flex-column;
+    gap: 2px;
+  }
+
+  &__name {
+    font-family: $font-body;
+    font-size: $fs-base;
+    font-weight: $fw-semibold;
+    color: $color-text-primary;
+    margin: 0;
+  }
+
+  &__role {
+    font-family: $font-body;
+    font-size: $fs-xs;
+    color: $color-text-muted;
+  }
+
+  &__project {
+    font-family: $font-body;
+    font-size: $fs-xs;
+    color: $color-primary;
+    font-weight: $fw-medium;
+  }
+}
+
+
+// ═══════════════════════════════════════════════════════════════
+// 7. CTA SECTION
+// ═══════════════════════════════════════════════════════════════
+.cta {
+  @include section-padding;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 30% 50%, rgba($color-primary, 0.12) 0%, transparent 50%),
+              radial-gradient(ellipse at 70% 50%, rgba($color-accent, 0.08) 0%, transparent 50%),
+              linear-gradient(180deg, $color-bg-dark 0%, $color-secondary 100%);
+  text-align: center;
+
+  &__container {
+    @include container;
+    position: relative;
+    z-index: 10;
+  }
+
+  &__heading {
+    @include heading($fs-3xl);
+    margin-bottom: $space-4;
+
+    @include respond-to('md') {
+      font-size: $fs-4xl;
+    }
+
+    @include respond-to('xl') {
+      font-size: $fs-5xl;
+    }
+  }
+
+  &__subtitle {
+    @include body-text($fs-md);
+    color: $color-text-muted;
+    max-width: 550px;
+    margin: 0 auto $space-10;
+
+    @include respond-to('md') {
+      font-size: $fs-lg;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    gap: $space-4;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  &__float-element {
+    position: absolute;
+    font-size: $fs-4xl;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1;
+
+    &--1 { top: 10%; left: 8%; }
+    &--2 { top: 20%; right: 10%; }
+    &--3 { bottom: 20%; left: 15%; }
+    &--4 { bottom: 15%; right: 12%; }
+    &--5 { top: 50%; left: 5%; }
+    &--6 { top: 40%; right: 5%; }
+
+    @include mobile-only {
+      font-size: $fs-2xl;
+    }
+  }
+}
+
+
+// ═══════════════════════════════════════════════════════════════
+// GLOBAL — Float animation (used by hero label)
+// ═══════════════════════════════════════════════════════════════
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}

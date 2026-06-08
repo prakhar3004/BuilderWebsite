@@ -1,0 +1,128 @@
+<!-- ===== HERO SECTION ===== -->
+<section class="hero" #heroSection>
+  <div class="hero__bg"></div>
+  <div class="hero__overlay"></div>
+
+  <div class="hero__content">
+    <div class="hero__label">Portfolio</div>
+    <hr class="hero__line" />
+    <h1 class="hero__title">Our <span class="hero__title--accent">Masterpieces</span></h1>
+    <p class="hero__subtitle">
+      Every project tells a story of excellence, precision, and passion.
+      Explore the landmarks we've built across the city.
+    </p>
+  </div>
+
+  <div class="hero__scroll-indicator">
+    <span>Portfolio</span>
+    <div class="hero__scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- ===== CATEGORY TABS ===== -->
+<section class="category-section" #categoryTabs>
+  <div class="category-container">
+    <button
+      class="category-tab"
+      *ngFor="let cat of categories"
+      [class.category-tab--active]="cat === activeCategory"
+      (click)="filterByCategory(cat)"
+    >
+      <span class="category-tab__text">{{ cat }}</span>
+    </button>
+  </div>
+</section>
+
+<!-- ===== PROJECTS LIST ===== -->
+<section class="projects-section">
+  <div class="projects-container">
+    <p class="projects-empty" *ngIf="filteredProjects.length === 0">
+      No projects found in this category.
+    </p>
+
+    <!-- Project Cards -->
+    <div
+      class="project-card"
+      *ngFor="let project of filteredProjects; let i = index; let isEven = even"
+      [class.project-card--reverse]="!isEven"
+      #projectCard
+    >
+      <!-- Image Side -->
+      <div class="project-card__image">
+        <div class="project-card__image-inner">
+          <div class="project-card__image-placeholder">
+            <div class="project-card__image-icon">
+              {{ project.category === 'Commercial' ? '🏢' :
+                 project.category === 'Villa Project' ? '🏡' :
+                 project.category === 'Township' ? '🏘️' :
+                 project.category === 'Renovation' ? '🔨' : '🏠' }}
+            </div>
+            <span class="project-card__image-label">{{ project.category }}</span>
+          </div>
+        </div>
+
+        <!-- Year Badge -->
+        <div class="project-card__year-badge">
+          {{ project.completionYear }}
+        </div>
+      </div>
+
+      <!-- Content Side -->
+      <div class="project-card__content">
+        <!-- Category Tag -->
+        <div class="project-card__category">{{ project.category }}</div>
+
+        <h3 class="project-card__title">{{ project.title }}</h3>
+
+        <div class="project-card__location">
+          <span class="project-card__pin">📍</span>
+          {{ project.location }}
+        </div>
+
+        <p class="project-card__description">{{ project.description }}</p>
+
+        <!-- Area -->
+        <div class="project-card__area">
+          <span class="project-card__area-label">Total Area</span>
+          <span class="project-card__area-value">{{ formatAreaFull(project.areaSqFt) }}</span>
+        </div>
+
+        <!-- Testimonial Quote -->
+        <div class="project-card__testimonial">
+          <div class="project-card__quote-mark">"</div>
+          <blockquote class="project-card__quote">
+            {{ project.testimonial }}
+          </blockquote>
+          <cite class="project-card__client">— {{ project.clientName }}</cite>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STATS ROW ===== -->
+<section class="stats-section" #statsSection>
+  <div class="stats-container">
+    <div class="stat-item" #statItem>
+      <div class="stat-item__value">{{ displayProjects }}+</div>
+      <div class="stat-item__label">Total Projects</div>
+      <div class="stat-item__icon">🏗️</div>
+    </div>
+
+    <div class="stat-item__divider"></div>
+
+    <div class="stat-item" #statItem>
+      <div class="stat-item__value">{{ formatArea(displayArea) }}</div>
+      <div class="stat-item__label">Total Area Built (sq.ft)</div>
+      <div class="stat-item__icon">📐</div>
+    </div>
+
+    <div class="stat-item__divider"></div>
+
+    <div class="stat-item" #statItem>
+      <div class="stat-item__value">{{ displayYears }}+</div>
+      <div class="stat-item__label">Years of Excellence</div>
+      <div class="stat-item__icon">🏆</div>
+    </div>
+  </div>
+</section>

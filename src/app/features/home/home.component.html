@@ -1,0 +1,308 @@
+<!-- ═══════════════════════════════════════════════════════════════
+     BuildNest — HOME PAGE
+     Award-winning hero page with premium GSAP animations
+     ═══════════════════════════════════════════════════════════════ -->
+
+<!-- ─────────────────────────────────
+     1. HERO SECTION
+     ───────────────────────────────── -->
+<section class="hero" #heroSection>
+  <!-- Blueprint Grid Overlay -->
+  <div class="hero__grid-overlay" #gridOverlay>
+    <div class="grid-line grid-line--horizontal" #gridLine *ngFor="let i of [1,2,3,4,5,6,7,8]"
+         [style.top.%]="i * 12"></div>
+    <div class="grid-line grid-line--vertical" #gridLine *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]"
+         [style.left.%]="i * 10"></div>
+  </div>
+
+  <!-- Floating Geometric Shapes -->
+  <div class="hero__shapes">
+    <div class="floating-shape floating-shape--square" #floatingShape
+         *ngFor="let pos of [
+           {top: '10%', left: '8%', size: '60px'},
+           {top: '20%', right: '12%', size: '45px'},
+           {top: '60%', left: '5%', size: '35px'},
+           {top: '75%', right: '8%', size: '50px'},
+           {top: '40%', left: '85%', size: '40px'},
+           {top: '15%', left: '45%', size: '30px'}
+         ]"
+         [style.top]="pos.top"
+         [style.left]="pos.left"
+         [style.right]="pos.right"
+         [style.width]="pos.size"
+         [style.height]="pos.size">
+    </div>
+    <div class="floating-shape floating-shape--triangle" #floatingShape
+         style="top: 30%; left: 15%;">
+    </div>
+    <div class="floating-shape floating-shape--triangle floating-shape--triangle-sm" #floatingShape
+         style="top: 55%; right: 15%;">
+    </div>
+    <div class="floating-shape floating-shape--triangle floating-shape--triangle-xs" #floatingShape
+         style="top: 80%; left: 40%;">
+    </div>
+    <div class="floating-shape floating-shape--triangle floating-shape--triangle-md" #floatingShape
+         style="top: 25%; left: 70%;">
+    </div>
+    <!-- Construction Icons -->
+    <div class="floating-shape floating-shape--icon" #floatingShape
+         *ngFor="let item of [
+           {top: '18%', left: '25%', icon: '🏗️'},
+           {top: '65%', right: '20%', icon: '🔨'},
+           {top: '45%', left: '10%', icon: '📐'},
+           {top: '70%', left: '75%', icon: '🧱'}
+         ]"
+         [style.top]="item.top"
+         [style.left]="item.left"
+         [style.right]="item.right">
+      {{ item.icon }}
+    </div>
+  </div>
+
+  <!-- Hero Content -->
+  <div class="hero__content">
+    <div class="hero__label">
+      <span class="hero__label-icon">⬡</span>
+      <span>Premium Home Construction</span>
+    </div>
+
+    <h1 class="hero__heading" #heroHeading>
+      <span class="hero__heading-line">We Build Your</span>
+      <span class="hero__heading-word" #heroWord>{{ currentWord }}</span>
+    </h1>
+
+    <p class="hero__subtitle" #heroSubtitle>
+      From blueprint to reality — premium construction, quality materials, transparent process
+    </p>
+
+    <div class="hero__cta" #heroCta>
+      <a routerLink="/contact" class="btn btn--primary">
+        <span class="btn__icon">🏠</span>
+        Start Your Project
+      </a>
+      <a routerLink="/projects" class="btn btn--outline">
+        <span class="btn__icon">🎯</span>
+        View Our Work
+      </a>
+    </div>
+  </div>
+
+  <!-- Scroll Indicator -->
+  <div class="hero__scroll-indicator">
+    <div class="scroll-line"></div>
+    <span>Scroll to Explore</span>
+  </div>
+</section>
+
+
+<!-- ─────────────────────────────────
+     2. STATS COUNTER SECTION
+     ───────────────────────────────── -->
+<section class="stats" #statsSection>
+  <div class="stats__container">
+    <div class="section-header section-header--center">
+      <span class="section-header__label">Our Impact</span>
+      <h2 class="section-header__title">Numbers That Speak</h2>
+    </div>
+
+    <div class="stats__grid">
+      <div class="stat-card" #statCard *ngFor="let stat of stats; let i = index">
+        <div class="stat-card__icon">{{ stat.icon }}</div>
+        <div class="stat-card__value">
+          <span class="stat-card__number" #statValue>0</span>
+          <span class="stat-card__suffix">{{ stat.suffix }}</span>
+        </div>
+        <div class="stat-card__label">{{ stat.label }}</div>
+        <div class="stat-card__glow"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─────────────────────────────────
+     3. SERVICES SECTION
+     ───────────────────────────────── -->
+<section class="services" #servicesSection>
+  <div class="services__container">
+    <div class="section-header section-header--center">
+      <span class="section-header__label">Our Expertise</span>
+      <h2 class="section-header__title">What We Do</h2>
+      <div class="section-header__line"></div>
+      <p class="section-header__desc">
+        Comprehensive construction and real estate services to make your dream a reality
+      </p>
+    </div>
+
+    <div class="services__grid">
+      <div class="service-card" #serviceCard *ngFor="let service of services">
+        <div class="service-card__icon-wrap">
+          <span class="service-card__icon">{{ service.icon }}</span>
+          <div class="service-card__icon-glow"></div>
+        </div>
+        <h3 class="service-card__title">{{ service.title }}</h3>
+        <p class="service-card__desc">{{ service.description }}</p>
+        <ul class="service-card__features">
+          <li *ngFor="let feat of service.features">
+            <span class="feature-check">✦</span>
+            {{ feat }}
+          </li>
+        </ul>
+        <a [routerLink]="service.route" class="service-card__link">
+          Learn More
+          <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─────────────────────────────────
+     4. FEATURED PROJECTS SECTION
+     ───────────────────────────────── -->
+<section class="projects" #projectsSection>
+  <div class="projects__container">
+    <div class="section-header section-header--center">
+      <span class="section-header__label">Portfolio</span>
+      <h2 class="section-header__title">Our Masterpieces</h2>
+      <div class="section-header__line"></div>
+    </div>
+
+    <div class="projects__grid">
+      <div class="project-card" #projectCard *ngFor="let project of projects; let i = index">
+        <div class="project-card__image-wrap">
+          <div class="project-card__image"
+               [style.background]="'linear-gradient(135deg, rgba(212,160,23,0.15), rgba(22,33,62,0.9))'">
+            <div class="project-card__image-inner">
+              <span class="project-card__image-icon">{{ i === 0 ? '🏢' : i === 1 ? '🏡' : '🏬' }}</span>
+            </div>
+          </div>
+          <span class="project-card__badge"
+                [style.background]="getCategoryColor(project.category)">
+            {{ project.category }}
+          </span>
+        </div>
+        <div class="project-card__content">
+          <h3 class="project-card__title">{{ project.title }}</h3>
+          <div class="project-card__meta">
+            <span class="project-card__location">📍 {{ project.location }}</span>
+            <span class="project-card__year">{{ project.completionYear }}</span>
+          </div>
+          <p class="project-card__desc">{{ project.description }}</p>
+          <div class="project-card__stats">
+            <span>{{ (project.areaSqFt / 1000) | number:'1.0-0' }}K sq.ft</span>
+            <span class="dot">•</span>
+            <span>{{ project.category }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="projects__cta">
+      <a routerLink="/projects" class="btn btn--outline">
+        View All Projects
+        <span class="arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─────────────────────────────────
+     5. CONSTRUCTION PROCESS MINI PREVIEW
+     ───────────────────────────────── -->
+<section class="process" #processSection>
+  <div class="process__container">
+    <div class="section-header section-header--center">
+      <span class="section-header__label">Our Process</span>
+      <h2 class="section-header__title">How We Build</h2>
+      <div class="section-header__line"></div>
+    </div>
+
+    <div class="process__timeline">
+      <div class="process__line"></div>
+      <div class="process__stages">
+        <div class="stage-item" #stageItem *ngFor="let stage of stages; let i = index">
+          <div class="stage-item__dot">
+            <span class="stage-item__number">{{ stage.stageNumber }}</span>
+          </div>
+          <div class="stage-item__icon">{{ stage.iconName }}</div>
+          <div class="stage-item__title">{{ stage.title }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="process__cta">
+      <a routerLink="/services/construction" class="btn btn--primary">
+        View Full Process
+        <span class="arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─────────────────────────────────
+     6. TESTIMONIALS SECTION
+     ───────────────────────────────── -->
+<section class="testimonials" #testimonialsSection>
+  <div class="testimonials__container">
+    <div class="section-header section-header--center">
+      <span class="section-header__label">Testimonials</span>
+      <h2 class="section-header__title">What Our Clients Say</h2>
+      <div class="section-header__line"></div>
+    </div>
+
+    <div class="testimonials__grid">
+      <div class="testimonial-card" #testimonialCard *ngFor="let testimonial of testimonials">
+        <div class="testimonial-card__quote-icon">"</div>
+        <p class="testimonial-card__content">{{ testimonial.content }}</p>
+        <div class="testimonial-card__rating">
+          <span class="star" *ngFor="let s of getStarArray(testimonial.rating)">★</span>
+        </div>
+        <div class="testimonial-card__footer">
+          <div class="testimonial-card__avatar">
+            {{ testimonial.name.charAt(0) }}
+          </div>
+          <div class="testimonial-card__info">
+            <h4 class="testimonial-card__name">{{ testimonial.name }}</h4>
+            <span class="testimonial-card__role">{{ testimonial.role }}</span>
+            <span class="testimonial-card__project">{{ testimonial.projectName }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─────────────────────────────────
+     7. CTA SECTION
+     ───────────────────────────────── -->
+<section class="cta" #ctaSection>
+  <!-- Floating construction elements -->
+  <div class="cta__float-element cta__float-element--1">🏗️</div>
+  <div class="cta__float-element cta__float-element--2">🔨</div>
+  <div class="cta__float-element cta__float-element--3">📐</div>
+  <div class="cta__float-element cta__float-element--4">🏠</div>
+  <div class="cta__float-element cta__float-element--5">⚡</div>
+  <div class="cta__float-element cta__float-element--6">🧱</div>
+
+  <div class="cta__container">
+    <h2 class="cta__heading">Ready to Build Your Dream Home?</h2>
+    <p class="cta__subtitle">
+      Get a free consultation and cost estimate today. Let's turn your vision into reality.
+    </p>
+    <div class="cta__buttons">
+      <a routerLink="/contact" class="btn btn--primary btn--lg">
+        <span class="btn__icon">📋</span>
+        Get Free Quote
+      </a>
+      <a href="tel:+911234567890" class="btn btn--outline btn--lg">
+        <span class="btn__icon">📞</span>
+        Call Us Now
+      </a>
+    </div>
+  </div>
+</section>

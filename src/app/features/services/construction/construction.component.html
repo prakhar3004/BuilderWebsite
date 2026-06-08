@@ -1,0 +1,131 @@
+<section class="construction-hero" #heroSection>
+  <div class="blueprint-grid"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="badge-icon">🏗️</span>
+      <span class="badge-text">Step-by-Step Process</span>
+    </div>
+    <h1 class="hero-title" #heroTitle>
+      Step by Step
+      <span class="hero-title-block">
+        Home Construction
+        <span class="hero-title-accent"></span>
+      </span>
+    </h1>
+    <p class="hero-subtitle" #heroSubtitle>
+      Watch your dream home come to life through our transparent, systematic
+      7-stage construction process — from blueprint to keys.
+    </p>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-value">7</span>
+        <span class="stat-label">Stages</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">20+</span>
+        <span class="stat-label">Weeks</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">100%</span>
+        <span class="stat-label">Transparent</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Progress Indicator (Fixed) -->
+<div class="progress-indicator">
+  <div
+    class="progress-dot"
+    *ngFor="let stage of stages; let i = index"
+    #progressDot
+    [class.active]="i <= activeStageIndex"
+  >
+    <span class="progress-tooltip">{{ stage.title }}</span>
+  </div>
+</div>
+
+<!-- Timeline Section -->
+<section class="timeline-section" #timelineSection>
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">The Journey</span>
+      <h2 class="section-title">From Foundation to Keys</h2>
+      <hr class="gold-line" />
+    </div>
+
+    <div class="timeline-wrapper">
+      <!-- Vertical timeline line -->
+      <div class="timeline-line" #timelineLine>
+        <div class="timeline-line-fill" #timelineLineFill></div>
+      </div>
+
+      <!-- Stage Cards -->
+      <div
+        class="stage-item"
+        *ngFor="let stage of stages; let i = index"
+        [class.stage-left]="i % 2 === 0"
+        [class.stage-right]="i % 2 !== 0"
+        #stageCard
+      >
+        <!-- Timeline dot -->
+        <div class="timeline-dot" #timelineDot>
+          <span class="dot-icon">{{ stage.iconName }}</span>
+        </div>
+
+        <!-- Stage Card -->
+        <div class="stage-card">
+          <div class="stage-number" #stageNumber>
+            <span class="number-text">{{ stage.stageNumber }}</span>
+          </div>
+
+          <div class="stage-content">
+            <div class="stage-header">
+              <h3 class="stage-title">{{ stage.title }}</h3>
+              <div class="duration-badge">
+                <span class="badge-icon">⏱️</span>
+                <span>{{ stage.durationDays }}</span>
+              </div>
+            </div>
+
+            <p class="stage-description">{{ stage.description }}</p>
+
+            <ul class="stage-details">
+              <li class="detail-item" *ngFor="let detail of stage.details">
+                <span class="detail-check">▸</span>
+                <span>{{ detail }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section" #ctaSection>
+  <div class="container">
+    <div class="cta-inner">
+      <div class="cta-glow"></div>
+      <div class="cta-content">
+        <span class="cta-icon">🏠</span>
+        <h2 class="cta-title">Start Your Construction Journey</h2>
+        <p class="cta-text">
+          Ready to build your dream home? Book a free consultation with our
+          construction experts and get a detailed project plan.
+        </p>
+        <div class="cta-actions">
+          <a routerLink="/contact" class="cta-btn cta-btn-primary">
+            <span>Book Free Consultation</span>
+            <span class="btn-arrow">→</span>
+          </a>
+          <a routerLink="/services" class="cta-btn cta-btn-outline">
+            <span>View All Services</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
