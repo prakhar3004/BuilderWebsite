@@ -202,6 +202,9 @@
 .projects-section {
   @include section-padding;
   background: $color-bg-dark;
+  // Clip the brief horizontal slide-in of cards so it never spawns a
+  // horizontal scrollbar / misaligned look on narrow screens.
+  overflow-x: clip;
 }
 
 .projects-container {
@@ -519,6 +522,16 @@
     &__subtitle {
       font-size: $fs-base;
     }
+  }
+
+  // Tighten the dead space between the tabs and the first card on mobile.
+  .category-section {
+    padding-top: $space-8;
+    padding-bottom: $space-4;
+  }
+
+  .projects-section {
+    padding-top: $space-8;
   }
 
   .category-tab {

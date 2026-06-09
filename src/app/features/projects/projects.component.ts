@@ -114,11 +114,12 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.categoryTabs?.nativeElement) {
       const tabs = this.categoryTabs.nativeElement.querySelectorAll('.category-tab');
       gsap.from(tabs, {
-        y: 30,
+        y: 20,
         opacity: 0,
-        stagger: 0.08,
-        duration: 0.6,
-        ease: 'back.out(1.7)'
+        stagger: 0.06,
+        duration: 0.4,
+        ease: 'power2.out',
+        clearProps: 'all'
       });
     }
 
@@ -146,6 +147,10 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
       });
       this.scrollTriggers.push(statsSt);
     }
+
+    // Recalculate every trigger once the layout/fonts have settled so cards
+    // that are already in view on load are revealed reliably.
+    ScrollTrigger.refresh();
   }
 
   private animateProjectCards(): void {
@@ -153,53 +158,39 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.cardScrollTriggers.forEach(st => st.kill());
     this.cardScrollTriggers = [];
 
+    // Wait for *ngFor to finish (re)rendering the filtered cards.
     setTimeout(() => {
       const cards = this.projectCards?.toArray().map(c => c.nativeElement) || [];
       if (cards.length === 0) return;
 
-      gsap.set(cards, { opacity: 0 });
+      // Reset any residual transforms/opacity left on reused DOM nodes so we
+      // always start from the natural, visible layout.
+      gsap.set(cards, { clearProps: 'all' });
 
       cards.forEach((card, i) => {
         const fromLeft = i % 2 === 0;
-        gsap.set(card, {
-          x: fromLeft ? -120 : 120,
+
+        // `from` tween: the card sits at its final, aligned position by default
+        // and only animates in when scrolled into view. If the reveal never
+        // fires, the card simply stays visible — it can never get stuck hidden.
+        const tween = gsap.from(card, {
+          x: fromLeft ? -60 : 60,
           opacity: 0,
-          rotateY: fromLeft ? 5 : -5
+          duration: 0.9,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 92%',
+            toggleActions: 'play none none none',
+            once: true
+          }
         });
-
-        const st = ScrollTrigger.create({
-          trigger: card,
-          start: 'top 85%',
-          onEnter: () => {
-            gsap.to(card, {
-              x: 0,
-              opacity: 1,
-              rotateY: 0,
-              duration: 1,
-              ease: 'power3.out'
-            });
-
-            // Parallax on project image
-            const imgEl = card.querySelector('.project-card__image');
-            if (imgEl) {
-              const imgSt = gsap.to(imgEl.querySelector('.project-card__image-inner'), {
-                y: -30,
-                ease: 'none',
-                scrollTrigger: {
-                  trigger: card,
-                  start: 'top bottom',
-                  end: 'bottom top',
-                  scrub: 1
-                }
-              });
-              if (imgSt.scrollTrigger) this.cardScrollTriggers.push(imgSt.scrollTrigger);
-            }
-          },
-          once: true
-        });
-        this.cardScrollTriggers.push(st);
+        if (tween.scrollTrigger) this.cardScrollTriggers.push(tween.scrollTrigger);
       });
-    }, 200);
+
+      // Positions are now final — refresh so above-the-fold cards reveal at once.
+      ScrollTrigger.refresh();
+    }, 100);
   }
 
   private animateCounters(): void {
