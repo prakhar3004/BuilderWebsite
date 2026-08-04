@@ -17,6 +17,12 @@ import { FooterComponent } from './shared/components/footer/footer.component';
   styles: [`
     .page-wrapper {
       min-height: 100vh;
+      padding-top: 80px;
+    }
+    @media (max-width: 991px) {
+      .page-wrapper {
+        padding-top: 70px;
+      }
     }
   `]
 })

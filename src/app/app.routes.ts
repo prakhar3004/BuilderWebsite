@@ -1,19 +1,22 @@
 import { Routes } from '@angular/router';
+import { HomeComponent } from './features/home/home.component';
+import { CalculatorComponent } from './features/calculator/calculator.component';
+import { ServicesOverviewComponent } from './features/services/services-overview/services-overview.component';
 
 export const routes: Routes = [
   {
     path: '',
-    loadComponent: () => import('./features/home/home.component').then(m => m.HomeComponent),
+    component: HomeComponent,
     title: 'Krishna Construction — Property, Construction & Renovation'
   },
   {
     path: 'services',
-    loadComponent: () => import('./features/services/services-overview/services-overview.component').then(m => m.ServicesOverviewComponent),
+    component: ServicesOverviewComponent,
     title: 'Our Services — Krishna Construction'
   },
   {
     path: 'calculator',
-    loadComponent: () => import('./features/calculator/calculator.component').then(m => m.CalculatorComponent),
+    component: CalculatorComponent,
     title: 'Construction & Material Calculator — Krishna Construction (Naveen Sharma)'
   },
   {
