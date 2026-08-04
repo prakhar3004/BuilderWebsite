@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 
 export interface QualityPackage {
   id: string;
@@ -31,8 +31,25 @@ export interface MaterialEstimate {
   templateUrl: './calculator.component.html',
   styleUrls: ['./calculator.component.scss']
 })
-export class CalculatorComponent {
+export class CalculatorComponent implements OnInit {
   activeTab: 'cost' | 'material' = 'cost';
+
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private cd: ChangeDetectorRef
+  ) {}
+
+  ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      if (params['tab'] === 'material') {
+        this.activeTab = 'material';
+      } else if (params['tab'] === 'cost') {
+        this.activeTab = 'cost';
+      }
+      this.cd.markForCheck();
+    });
+  }
 
   // --- Calculator 1 Inputs ---
   plotArea: number = 1000;
@@ -233,10 +250,17 @@ export class CalculatorComponent {
   // --- Helper Methods ---
   setTab(tab: 'cost' | 'material') {
     this.activeTab = tab;
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { tab },
+      queryParamsHandling: 'merge'
+    });
+    this.cd.markForCheck();
   }
 
   selectPackage(pkgId: string) {
     this.selectedPackageId = pkgId;
+    this.cd.markForCheck();
   }
 
   formatCurrency(val: number): string {

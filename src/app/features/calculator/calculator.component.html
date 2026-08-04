@@ -25,6 +25,7 @@
       <!-- TAB SELECTOR -->
       <div class="calc-tabs">
         <button
+          type="button"
           class="calc-tab"
           [class.active]="activeTab === 'cost'"
           (click)="setTab('cost')"
@@ -37,6 +38,7 @@
         </button>
 
         <button
+          type="button"
           class="calc-tab"
           [class.active]="activeTab === 'material'"
           (click)="setTab('material')"
@@ -63,8 +65,8 @@
               <div class="control-label-row">
                 <label for="plotArea">Built-up Plot Area</label>
                 <div class="unit-toggle">
-                  <button [class.active]="areaUnit === 'sqft'" (click)="areaUnit = 'sqft'">Sq. Ft.</button>
-                  <button [class.active]="areaUnit === 'gaz'" (click)="areaUnit = 'gaz'">Gaz (Sq. Yd)</button>
+                  <button type="button" [class.active]="areaUnit === 'sqft'" (click)="areaUnit = 'sqft'">Sq. Ft.</button>
+                  <button type="button" [class.active]="areaUnit === 'gaz'" (click)="areaUnit = 'gaz'">Gaz (Sq. Yd)</button>
                 </div>
               </div>
 

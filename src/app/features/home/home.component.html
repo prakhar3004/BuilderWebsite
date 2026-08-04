@@ -203,8 +203,12 @@
           Plan your building budget and estimate exact quantities of Cement, Steel, Bricks, Sand & Tiles for your plot in Gurugram.
         </p>
         <div class="calc-teaser__actions">
-          <a routerLink="/calculator" class="btn btn--primary btn--lg">
-            <span>📊 Open Construction Calculator</span>
+          <a [routerLink]="['/calculator']" [queryParams]="{tab: 'material'}" class="btn btn--primary btn--lg">
+            <span>📦 Material Quantity Estimator</span>
+            <span class="arrow">→</span>
+          </a>
+          <a [routerLink]="['/calculator']" [queryParams]="{tab: 'cost'}" class="btn btn--outline btn--lg">
+            <span>💰 Construction Cost Estimator</span>
             <span class="arrow">→</span>
           </a>
         </div>
