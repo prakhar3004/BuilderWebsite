@@ -1,0 +1,276 @@
+<!-- ============================================ -->
+<!-- Krishna Construction — Civil Estimator       -->
+<!-- ============================================ -->
+
+<div class="calculator-page">
+  <!-- HERO SECTION -->
+  <section class="calc-hero">
+    <div class="calc-hero__bg"></div>
+    <div class="container">
+      <div class="calc-hero__content">
+        <span class="badge-devotional">✨ !! Jai Guru Ji !! — Civil Engineering Estimator</span>
+        <h1 class="calc-hero__title">
+          Smart <span class="text-gold">Construction & Material</span> Calculator
+        </h1>
+        <p class="calc-hero__subtitle">
+          Engineered using CPWD & IS 1200 Standards. Estimate exact construction budget, quality class rates, and raw material quantities for your dream property in Gurugram.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALCULATOR MAIN SECTION -->
+  <section class="calc-main section">
+    <div class="container">
+      <!-- TAB SELECTOR -->
+      <div class="calc-tabs">
+        <button
+          class="calc-tab"
+          [class.active]="activeTab === 'cost'"
+          (click)="setTab('cost')"
+        >
+          <span class="tab-icon">💰</span>
+          <div class="tab-text">
+            <span class="tab-title">1. Total Construction Cost</span>
+            <span class="tab-sub">Budget estimation by Quality Package</span>
+          </div>
+        </button>
+
+        <button
+          class="calc-tab"
+          [class.active]="activeTab === 'material'"
+          (click)="setTab('material')"
+        >
+          <span class="tab-icon">📊</span>
+          <div class="tab-text">
+            <span class="tab-title">2. Material Quantity Estimator</span>
+            <span class="tab-sub">Cement, Steel, Bricks, Sand & Tiles</span>
+          </div>
+        </button>
+      </div>
+
+      <!-- TAB 1: TOTAL CONSTRUCTION COST CALCULATOR -->
+      <div class="calc-content" *ngIf="activeTab === 'cost'">
+        <div class="calc-grid">
+          <!-- LEFT: INPUT CONTROLS -->
+          <div class="calc-controls-card">
+            <h2 class="card-heading">
+              <span class="icon">📐</span> Project Specifications
+            </h2>
+
+            <!-- Area Input -->
+            <div class="control-group">
+              <div class="control-label-row">
+                <label for="plotArea">Built-up Plot Area</label>
+                <div class="unit-toggle">
+                  <button [class.active]="areaUnit === 'sqft'" (click)="areaUnit = 'sqft'">Sq. Ft.</button>
+                  <button [class.active]="areaUnit === 'gaz'" (click)="areaUnit = 'gaz'">Gaz (Sq. Yd)</button>
+                </div>
+              </div>
+
+              <div class="input-with-unit">
+                <input
+                  type="number"
+                  id="plotArea"
+                  [(ngModel)]="plotArea"
+                  min="100"
+                  max="50000"
+                  step="50"
+                  class="calc-input"
+                />
+                <span class="unit-badge">{{ areaUnit === 'sqft' ? 'Sq. Ft.' : 'Gaz' }}</span>
+              </div>
+
+              <input
+                type="range"
+                [(ngModel)]="plotArea"
+                min="200"
+                max="5000"
+                step="50"
+                class="calc-slider"
+              />
+
+              <div class="helper-text" *ngIf="areaUnit === 'gaz'">
+                1 Gaz = 9 Sq. Ft. ➔ Total Plot Area = <strong>{{ areaInSqFt }} Sq. Ft.</strong>
+              </div>
+            </div>
+
+            <!-- Floors Input -->
+            <div class="control-group">
+              <label for="floors">Number of Floors</label>
+              <select id="floors" [(ngModel)]="floors" class="calc-select">
+                <option [ngValue]="1">Ground Floor Only (G)</option>
+                <option [ngValue]="2">Ground + 1st Floor (G+1)</option>
+                <option [ngValue]="3">Ground + 2 Floors (G+2)</option>
+                <option [ngValue]="4">Ground + 3 Floors (G+3)</option>
+                <option [ngValue]="5">Ground + 4 Floors (G+4)</option>
+              </select>
+              <div class="helper-text">
+                Total Built-up Area: <strong>{{ totalBuiltUpArea | number }} Sq. Ft.</strong>
+              </div>
+            </div>
+
+            <!-- Quality Package Selector -->
+            <div class="control-group">
+              <label>Select Construction Quality Package</label>
+              <div class="package-cards">
+                <div
+                  *ngFor="let pkg of packages"
+                  class="pkg-card"
+                  [class.selected]="selectedPackageId === pkg.id"
+                  (click)="selectPackage(pkg.id)"
+                >
+                  <div class="pkg-header">
+                    <span class="pkg-badge">{{ pkg.badge }}</span>
+                    <span class="pkg-rate">₹{{ pkg.ratePerSqFt }} / sqft</span>
+                  </div>
+                  <h3 class="pkg-title">{{ pkg.name }}</h3>
+                  <p class="pkg-desc">{{ pkg.description }}</p>
+                  <ul class="pkg-features">
+                    <li *ngFor="let feat of pkg.features">✓ {{ feat }}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT: RESULTS SUMMARY & BREAKDOWN -->
+          <div class="calc-results-card">
+            <div class="results-banner">
+              <span class="banner-tag">Estimated Total Project Cost</span>
+              <div class="banner-amount">{{ formatLakhs(totalEstimatedCost) }}</div>
+              <span class="banner-detail">
+                ₹{{ currentPackage.ratePerSqFt }}/sqft × {{ totalBuiltUpArea | number }} Sq. Ft. Built-Up Area
+              </span>
+            </div>
+
+            <!-- Cost Breakdown Table -->
+            <div class="breakdown-box">
+              <h3 class="breakdown-heading">IS Code Stage-wise Cost Breakdown</h3>
+
+              <div class="breakdown-item">
+                <div class="breakdown-info">
+                  <span class="item-name">🧱 Civil & Structure (58%)</span>
+                  <span class="item-val">{{ formatLakhs(civilWorkCost) }}</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-fill fill-civil" style="width: 58%"></div>
+                </div>
+                <span class="item-sub">Foundation, RCC Beam/Slab, Red Bricks, Plaster</span>
+              </div>
+
+              <div class="breakdown-item">
+                <div class="breakdown-info">
+                  <span class="item-name">🎨 Finishing Works (22%)</span>
+                  <span class="item-val">{{ formatLakhs(finishingCost) }}</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-fill fill-finishing" style="width: 22%"></div>
+                </div>
+                <span class="item-sub">Flooring Tiles, Painting, Doors, Windows, Ceiling</span>
+              </div>
+
+              <div class="breakdown-item">
+                <div class="breakdown-info">
+                  <span class="item-name">⚡ MEP — Plumbing & Electrical (12%)</span>
+                  <span class="item-val">{{ formatLakhs(MEPCost) }}</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-fill fill-mep" style="width: 12%"></div>
+                </div>
+                <span class="item-sub">Concealed Wiring, DBs, CPVC Pipes, Jaquar/Kohler</span>
+              </div>
+
+              <div class="breakdown-item">
+                <div class="breakdown-info">
+                  <span class="item-name">👷 Labor & Supervision (8%)</span>
+                  <span class="item-val">{{ formatLakhs(laborCost) }}</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-fill fill-labor" style="width: 8%"></div>
+                </div>
+                <span class="item-sub">Masons, Shuttering, Scaffolding & Site Management</span>
+              </div>
+            </div>
+
+            <!-- CTA BOX -->
+            <div class="cta-callout">
+              <h4>Want an official itemized BOQ for Gurugram?</h4>
+              <p>Get direct consultation from Proprietor Naveen Sharma with verified local rates.</p>
+              <a [href]="getWhatsAppUrl()" target="_blank" class="btn-whatsapp">
+                💬 Get BOQ on WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: MATERIAL QUANTITY & COST ESTIMATOR -->
+      <div class="calc-content" *ngIf="activeTab === 'material'">
+        <div class="calc-grid">
+          <!-- LEFT: MATERIAL QUANTITIES -->
+          <div class="calc-controls-card full-width">
+            <div class="material-header-row">
+              <div>
+                <h2 class="card-heading">
+                  <span class="icon">📦</span> Material Requirement Summary
+                </h2>
+                <p class="section-subtext">
+                  Based on Standard Indian Standards (IS 1200) Thumb Rules for {{ totalBuiltUpArea | number }} Sq. Ft. Built-up Area
+                </p>
+              </div>
+              <div class="total-mat-badge">
+                <span>Total Material Cost:</span>
+                <strong>{{ formatLakhs(totalMaterialCost) }}</strong>
+              </div>
+            </div>
+
+            <div class="materials-grid">
+              <div *ngFor="let item of materialEstimates" class="material-card">
+                <div class="mat-icon-wrap">
+                  <span class="mat-icon">{{ item.icon }}</span>
+                </div>
+                <div class="mat-details">
+                  <div class="mat-top">
+                    <h3 class="mat-name">{{ item.name }}</h3>
+                    <span class="mat-qty">{{ item.formattedQty }}</span>
+                  </div>
+                  <p class="mat-spec">{{ item.specText }}</p>
+
+                  <div class="mat-cost-row">
+                    <div class="rate-input-group">
+                      <label>Market Rate (₹/{{ item.unit.split(' ')[0] }}):</label>
+                      <input
+                        type="number"
+                        [(ngModel)]="item.rate"
+                        class="rate-input"
+                      />
+                    </div>
+                    <div class="mat-total">
+                      <span>Total:</span>
+                      <strong>{{ formatCurrency(item.totalCost) }}</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Material Summary Callout -->
+            <div class="engineer-note">
+              <span class="note-icon">👷‍♂️</span>
+              <div class="note-content">
+                <h4>Civil Engineer's Note (Naveen Sharma):</h4>
+                <p>
+                  These quantities include standard 5% - 8% handling & cutting wastage allowance. Exact quantities may vary slightly based on structural drawings and soil bearing capacity in Sector-67 / Golf Course Ext. Road Gurugram.
+                </p>
+              </div>
+              <a [href]="getWhatsAppUrl()" target="_blank" class="btn-whatsapp sm">
+                💬 Discuss Materials on WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

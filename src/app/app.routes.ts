@@ -12,6 +12,11 @@ export const routes: Routes = [
     title: 'Our Services — Krishna Construction'
   },
   {
+    path: 'calculator',
+    loadComponent: () => import('./features/calculator/calculator.component').then(m => m.CalculatorComponent),
+    title: 'Construction & Material Calculator — Krishna Construction (Naveen Sharma)'
+  },
+  {
     path: 'services/construction',
     loadComponent: () => import('./features/services/construction/construction.component').then(m => m.ConstructionComponent),
     title: 'Property & Construction — Krishna Construction'
