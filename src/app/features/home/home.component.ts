@@ -36,6 +36,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   private platformId = inject(PLATFORM_ID);
 
   // ── Data ──
+  companyDetails = this.dataService.getCompanyDetails();
+  partnerBrands = this.dataService.getPartnerBrands();
   stats: Stat[] = [];
   services: Service[] = [];
   projects: Project[] = [];
@@ -43,9 +45,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   testimonials: Testimonial[] = [];
 
   // ── Hero text cycling ──
-  heroWords: string[] = ['Dream Home', 'Future', 'Legacy'];
+  heroWords: string[] = ['Property Deals', 'Turnkey Construction', 'Luxury Renovation'];
   currentWordIndex = 0;
-  currentWord = 'Dream Home';
+  currentWord = 'Property Deals';
 
   // ── ViewChild refs ──
   @ViewChild('heroSection') heroSection!: ElementRef<HTMLElement>;

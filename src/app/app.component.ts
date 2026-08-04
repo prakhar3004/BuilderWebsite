@@ -21,5 +21,5 @@ import { FooterComponent } from './shared/components/footer/footer.component';
   `]
 })
 export class AppComponent {
-  title = 'BuildNest';
+  title = 'Krishna Construction';
 }

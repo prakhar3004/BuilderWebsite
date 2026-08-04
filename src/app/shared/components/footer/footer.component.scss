@@ -12,6 +12,53 @@
   background: $gradient-primary;
 }
 
+// Developer Partners Strip
+.footer-partners {
+  background: linear-gradient(90deg, rgba($color-bg-surface, 0.9) 0%, rgba($color-bg-card, 0.8) 50%, rgba($color-bg-surface, 0.9) 100%);
+  border-bottom: 1px solid $color-border;
+  padding: $space-4 0;
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: $space-4;
+  }
+
+  .partners-label {
+    font-family: $font-body;
+    font-size: $fs-xs;
+    font-weight: $fw-bold;
+    color: #FFD700;
+    letter-spacing: $ls-wider;
+    text-transform: uppercase;
+  }
+
+  .partners-badges {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: $space-4;
+
+    .partner-badge {
+      font-size: $fs-sm;
+      color: $color-text-primary;
+      background: rgba($color-bg-dark, 0.6);
+      padding: $space-2 $space-4;
+      border-radius: $radius-md;
+      border: 1px solid rgba($color-primary, 0.2);
+      transition: all $transition-fast;
+
+      &:hover {
+        border-color: #FFD700;
+        background: rgba($color-primary, 0.15);
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
+
 .footer-content {
   display: grid;
   grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
@@ -32,33 +79,54 @@
 
 // Brand
 .footer-brand {
+  .footer-devotional-badge {
+    display: inline-block;
+    color: #FFD700;
+    font-weight: $fw-bold;
+    font-size: $fs-xs;
+    background: rgba($color-primary, 0.15);
+    padding: 3px 12px;
+    border-radius: $radius-pill;
+    border: 1px solid rgba(#FFD700, 0.3);
+    margin-bottom: $space-3;
+  }
+
   .footer-logo {
     display: inline-flex;
     align-items: center;
     gap: $space-2;
     text-decoration: none;
-    margin-bottom: $space-6;
-
-    .logo-icon {
-      font-size: $fs-2xl;
-    }
+    margin-bottom: $space-3;
 
     .logo-text {
       font-family: $font-heading;
       font-size: $fs-xl;
-      font-weight: $fw-bold;
+      font-weight: $fw-black;
       color: $color-text-primary;
+      letter-spacing: $ls-tight;
 
       .accent {
-        @include text-gradient;
+        background: linear-gradient(135deg, #FFD700 0%, #D4A017 50%, #E85D04 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
       }
+    }
+  }
+
+  .footer-proprietor {
+    font-size: $fs-sm;
+    color: $color-primary-light;
+    margin-bottom: $space-3;
+
+    strong {
+      color: #FFF;
     }
   }
 
   .footer-tagline {
     @include body-text($fs-sm);
     color: $color-text-muted;
-    max-width: 300px;
+    max-width: 320px;
     margin-bottom: $space-6;
     line-height: $lh-relaxed;
   }
@@ -156,6 +224,12 @@
     margin-top: 2px;
   }
 
+  .phone-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
   .contact-text {
     @include body-text($fs-sm);
     color: $color-text-muted;
@@ -164,7 +238,7 @@
     line-height: $lh-relaxed;
 
     &:hover {
-      color: $color-primary;
+      color: #FFD700;
     }
   }
 }
@@ -193,5 +267,6 @@
   .footer-credits {
     @include label-text;
     font-size: 0.65rem;
+    color: $color-primary;
   }
 }

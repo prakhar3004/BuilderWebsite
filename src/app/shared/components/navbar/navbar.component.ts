@@ -15,6 +15,14 @@ export class NavbarComponent implements OnInit {
   isScrolled = false;
   isMobileMenuOpen = false;
 
+  devotionalTagline = '!! Jai Guru Ji !!';
+  proprietor = 'Naveen Sharma';
+  phones = [
+    { display: '9717077387', raw: '9717077387' },
+    { display: '7982100504', raw: '7982100504' }
+  ];
+  address = 'Office No. 420, 4th Floor, Soho Precision Tower, Sector-67, Gurugram';
+
   navLinks = [
     { label: 'Home', route: '/' },
     { label: 'Services', route: '/services' },

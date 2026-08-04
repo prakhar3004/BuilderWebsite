@@ -2,18 +2,33 @@
   <!-- Gold Line Top -->
   <div class="footer-top-line"></div>
 
+  <!-- Developer Partner Brands Strip -->
+  <div class="footer-partners">
+    <div class="container">
+      <span class="partners-label">DEVELOPER PARTNERS:</span>
+      <div class="partners-badges">
+        <span *ngFor="let partner of partnerBrands" class="partner-badge">
+          <strong>{{ partner.name }}</strong>
+        </span>
+      </div>
+    </div>
+  </div>
+
   <div class="footer-content container">
     <!-- Brand Section -->
     <div class="footer-brand">
+      <div class="footer-devotional-badge">
+        ✨ {{ contactInfo.devotionalTagline }}
+      </div>
       <a routerLink="/" class="footer-logo">
-        <span class="logo-icon">🏗️</span>
-        <span class="logo-text">Build<span class="accent">Nest</span></span>
+        <span class="logo-text">KRISHNA <span class="accent">CONSTRUCTION</span></span>
       </a>
+      <p class="footer-proprietor">Proprietor: <strong>{{ contactInfo.proprietor }}</strong></p>
       <p class="footer-tagline">
-        Building dreams, one brick at a time. Your trusted partner in home construction, real estate, and renovation services.
+        All Kind Of Deal In Property & Construction & Renovation. Your trusted partner for premier real estate, turnkey building, and modern renovation in Gurugram.
       </p>
       <div class="social-links">
-        <a *ngFor="let social of socialLinks" [href]="social.url" class="social-link" [title]="social.label">
+        <a *ngFor="let social of socialLinks" [href]="social.url" class="social-link" [title]="social.label" target="_blank" rel="noopener">
           {{ social.icon }}
         </a>
       </div>
@@ -31,7 +46,7 @@
 
     <!-- Company Links -->
     <div class="footer-section">
-      <h4 class="footer-heading">Company</h4>
+      <h4 class="footer-heading">Quick Navigation</h4>
       <ul class="footer-links">
         <li *ngFor="let link of companyLinks">
           <a [routerLink]="link.route" class="footer-link">{{ link.label }}</a>
@@ -41,11 +56,14 @@
 
     <!-- Contact Info -->
     <div class="footer-section">
-      <h4 class="footer-heading">Contact Us</h4>
+      <h4 class="footer-heading">Get In Touch</h4>
       <div class="contact-items">
         <div class="contact-item">
           <span class="contact-icon">📞</span>
-          <a [href]="'tel:' + contactInfo.phone" class="contact-text">{{ contactInfo.phone }}</a>
+          <div class="phone-stack">
+            <a [href]="'tel:' + contactInfo.rawPhone1" class="contact-text">{{ contactInfo.phone1 }}</a>
+            <a [href]="'tel:' + contactInfo.rawPhone2" class="contact-text">{{ contactInfo.phone2 }}</a>
+          </div>
         </div>
         <div class="contact-item">
           <span class="contact-icon">📧</span>
@@ -62,8 +80,8 @@
   <!-- Bottom Bar -->
   <div class="footer-bottom">
     <div class="container footer-bottom-content">
-      <p>&copy; {{ currentYear }} BuildNest. All rights reserved. Built with ❤️ in Lucknow.</p>
-      <p class="footer-credits">Crafting Premium Homes Since 2010</p>
+      <p>&copy; {{ currentYear }} Krishna Construction (Naveen Sharma). All rights reserved.</p>
+      <p class="footer-credits">Soho Precision Tower, Sector-67, Gurugram</p>
     </div>
   </div>
 </footer>

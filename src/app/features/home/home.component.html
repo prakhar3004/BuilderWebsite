@@ -62,27 +62,31 @@
   <!-- Hero Content -->
   <div class="hero__content">
     <div class="hero__label">
-      <span class="hero__label-icon">⬡</span>
-      <span>Premium Home Construction</span>
+      <span class="hero__label-icon">✨</span>
+      <span>!! Jai Guru Ji !! — Proprietor: Naveen Sharma</span>
     </div>
 
     <h1 class="hero__heading" #heroHeading>
-      <span class="hero__heading-line">We Build Your</span>
+      <span class="hero__heading-line">Krishna Construction</span>
       <span class="hero__heading-word" #heroWord>{{ currentWord }}</span>
     </h1>
 
     <p class="hero__subtitle" #heroSubtitle>
-      From blueprint to reality — premium construction, quality materials, transparent process
+      All Kind Of Deal In Property & Construction & Renovation — Office No. 420, Soho Precision Tower, Sector-67, Gurugram
     </p>
 
     <div class="hero__cta" #heroCta>
       <a routerLink="/contact" class="btn btn--primary">
-        <span class="btn__icon">🏠</span>
-        Start Your Project
+        <span class="btn__icon">📋</span>
+        Get Free Quote
       </a>
-      <a routerLink="/projects" class="btn btn--outline">
-        <span class="btn__icon">🎯</span>
-        View Our Work
+      <a href="tel:9717077387" class="btn btn--outline">
+        <span class="btn__icon">📞</span>
+        9717077387
+      </a>
+      <a href="tel:7982100504" class="btn btn--outline">
+        <span class="btn__icon">📞</span>
+        7982100504
       </a>
     </div>
   </div>
@@ -101,7 +105,7 @@
 <section class="stats" #statsSection>
   <div class="stats__container">
     <div class="section-header section-header--center">
-      <span class="section-header__label">Our Impact</span>
+      <span class="section-header__label">Our Track Record</span>
       <h2 class="section-header__title">Numbers That Speak</h2>
     </div>
 
@@ -121,16 +125,42 @@
 
 
 <!-- ─────────────────────────────────
+     2.5 DEVELOPER PARTNERS SHOWCASE
+     ───────────────────────────────── -->
+<section class="partners-showcase">
+  <div class="partners-showcase__container container">
+    <div class="section-header section-header--center">
+      <span class="section-header__label">Top Developer Collaborations</span>
+      <h2 class="section-header__title">Our Developer Partners</h2>
+      <div class="section-header__line"></div>
+      <p class="section-header__desc">
+        Direct deals & official sales partnerships across premier projects in Gurugram & NCR
+      </p>
+    </div>
+
+    <div class="partners-grid">
+      <div class="partner-card" *ngFor="let partner of partnerBrands">
+        <div class="partner-card__icon-wrap">🏢</div>
+        <h3 class="partner-card__name">{{ partner.name }}</h3>
+        <p class="partner-card__tagline" *ngIf="partner.tagline">{{ partner.tagline }}</p>
+        <span class="partner-card__badge" *ngIf="partner.badge">{{ partner.badge }}</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─────────────────────────────────
      3. SERVICES SECTION
      ───────────────────────────────── -->
 <section class="services" #servicesSection>
   <div class="services__container">
     <div class="section-header section-header--center">
-      <span class="section-header__label">Our Expertise</span>
+      <span class="section-header__label">Our Core Services</span>
       <h2 class="section-header__title">What We Do</h2>
       <div class="section-header__line"></div>
       <p class="section-header__desc">
-        Comprehensive construction and real estate services to make your dream a reality
+        All Kind Of Deal In Property & Construction & Renovation in Gurugram
       </p>
     </div>
 
@@ -165,7 +195,7 @@
   <div class="projects__container">
     <div class="section-header section-header--center">
       <span class="section-header__label">Portfolio</span>
-      <h2 class="section-header__title">Our Masterpieces</h2>
+      <h2 class="section-header__title">Our Prime Projects in Gurugram</h2>
       <div class="section-header__line"></div>
     </div>
 
@@ -216,7 +246,7 @@
   <div class="process__container">
     <div class="section-header section-header--center">
       <span class="section-header__label">Our Process</span>
-      <h2 class="section-header__title">How We Build</h2>
+      <h2 class="section-header__title">How We Build Your Home</h2>
       <div class="section-header__line"></div>
     </div>
 
@@ -249,7 +279,7 @@
 <section class="testimonials" #testimonialsSection>
   <div class="testimonials__container">
     <div class="section-header section-header--center">
-      <span class="section-header__label">Testimonials</span>
+      <span class="section-header__label">Client Trust</span>
       <h2 class="section-header__title">What Our Clients Say</h2>
       <div class="section-header__line"></div>
     </div>
@@ -290,18 +320,23 @@
   <div class="cta__float-element cta__float-element--6">🧱</div>
 
   <div class="cta__container">
-    <h2 class="cta__heading">Ready to Build Your Dream Home?</h2>
+    <div class="cta__devotional">✨ !! Jai Guru Ji !! ✨</div>
+    <h2 class="cta__heading">Property Deal, Construction, or Renovation in Gurugram?</h2>
     <p class="cta__subtitle">
-      Get a free consultation and cost estimate today. Let's turn your vision into reality.
+      Connect directly with <strong>Naveen Sharma</strong> at Krishna Construction. Direct developer deals with DLF, M3M, Signature Global & more.
     </p>
     <div class="cta__buttons">
       <a routerLink="/contact" class="btn btn--primary btn--lg">
         <span class="btn__icon">📋</span>
-        Get Free Quote
+        Get Free Consultation
       </a>
-      <a href="tel:+911234567890" class="btn btn--outline btn--lg">
+      <a href="tel:9717077387" class="btn btn--outline btn--lg">
         <span class="btn__icon">📞</span>
-        Call Us Now
+        Call 9717077387
+      </a>
+      <a href="tel:7982100504" class="btn btn--outline btn--lg">
+        <span class="btn__icon">📞</span>
+        Call 7982100504
       </a>
     </div>
   </div>

@@ -1,9 +1,43 @@
+<!-- Top Header Bar with Jai Guru Ji & Contact Info -->
+<div class="top-header-bar">
+  <div class="top-header-container">
+    <div class="top-header-left">
+      <span class="blessing-tag"><span class="star-sparkle">✨</span> {{ devotionalTagline }}</span>
+      <span class="proprietor-tag">👤 {{ proprietor }}</span>
+    </div>
+    <div class="top-header-right">
+      <div class="phone-group">
+        <a href="tel:9717077387" class="top-phone">📞 9717077387</a>
+        <span class="sep">•</span>
+        <a href="tel:7982100504" class="top-phone">📞 7982100504</a>
+      </div>
+      <span class="top-address">📍 Sec-67, Gurugram</span>
+    </div>
+  </div>
+</div>
+
 <nav #navbar class="navbar" [class.scrolled]="isScrolled" [class.menu-open]="isMobileMenuOpen">
   <div class="navbar-container">
     <!-- Logo -->
     <a routerLink="/" class="logo" (click)="closeMobileMenu()">
-      <span class="logo-icon">🏗️</span>
-      <span class="logo-text">Build<span class="logo-accent">Nest</span></span>
+      <div class="logo-mark">
+        <svg width="34" height="34" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M50 12 L85 42 H75 V84 H25 V42 H15 Z" fill="url(#kc-gold-gradient)" stroke="#FFD700" stroke-width="3"/>
+          <path d="M50 28 L66 42 V74 H34 V42 Z" fill="#0F0F1A"/>
+          <path d="M42 52 H58 V74 H42 Z" fill="url(#kc-gold-gradient)"/>
+          <defs>
+            <linearGradient id="kc-gold-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#FFD700" />
+              <stop offset="50%" stop-color="#D4A017" />
+              <stop offset="100%" stop-color="#E85D04" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="logo-text-box">
+        <span class="logo-main">KRISHNA <span class="logo-accent">CONSTRUCTION</span></span>
+        <span class="logo-sub">Property & Construction & Renovation</span>
+      </div>
     </a>
 
     <!-- Desktop Navigation -->
@@ -33,6 +67,9 @@
 
   <!-- Mobile Menu -->
   <div class="mobile-menu" [class.open]="isMobileMenuOpen">
+    <div class="mobile-blessing">
+      ✨ {{ devotionalTagline }} — {{ proprietor }}
+    </div>
     <ul class="mobile-nav-links">
       <li *ngFor="let link of navLinks" class="nav-item">
         <a [routerLink]="link.route"
@@ -44,6 +81,10 @@
         </a>
       </li>
     </ul>
+    <div class="mobile-phones">
+      <a href="tel:9717077387" class="mobile-phone-link">📞 9717077387</a>
+      <a href="tel:7982100504" class="mobile-phone-link">📞 7982100504</a>
+    </div>
     <a routerLink="/contact" class="nav-cta mobile-cta" (click)="closeMobileMenu()">
       Get Free Quote
     </a>

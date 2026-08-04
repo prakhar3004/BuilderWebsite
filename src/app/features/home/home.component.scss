@@ -344,6 +344,86 @@
   }
 }
 
+// ═══════════════════════════════════════════════════════════════
+// 2.5 DEVELOPER PARTNERS SHOWCASE SECTION
+// ═══════════════════════════════════════════════════════════════
+.partners-showcase {
+  @include section-padding;
+  background: linear-gradient(180deg, $color-bg-darker 0%, $color-bg-dark 100%);
+  position: relative;
+  border-top: 1px solid $color-border-light;
+  border-bottom: 1px solid $color-border-light;
+
+  &__container {
+    @include container;
+  }
+}
+
+.partners-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $space-6;
+
+  @include respond-to('sm') {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include respond-to('lg') {
+    grid-template-columns: repeat(6, 1fr);
+    gap: $space-6;
+  }
+}
+
+.partner-card {
+  @include card;
+  @include flex-column;
+  align-items: center;
+  text-align: center;
+  padding: $space-6 $space-4;
+  border-radius: $radius-xl;
+  background: rgba($color-bg-card, 0.6);
+  border: 1px solid rgba($color-primary, 0.2);
+  transition: all $transition-base;
+
+  &:hover {
+    transform: translateY(-8px);
+    border-color: #FFD700;
+    background: rgba($color-primary, 0.12);
+    box-shadow: $shadow-glow;
+  }
+
+  &__icon-wrap {
+    font-size: $fs-3xl;
+    margin-bottom: $space-3;
+  }
+
+  &__name {
+    font-family: $font-heading;
+    font-size: $fs-base;
+    font-weight: $fw-black;
+    color: $color-text-primary;
+    letter-spacing: $ls-wide;
+    margin-bottom: $space-2;
+  }
+
+  &__tagline {
+    font-family: $font-body;
+    font-size: $fs-xs;
+    color: $color-text-muted;
+    margin-bottom: $space-3;
+  }
+
+  &__badge {
+    font-family: $font-body;
+    font-size: 0.7rem;
+    font-weight: $fw-semibold;
+    color: #FFD700;
+    background: rgba($color-primary, 0.15);
+    padding: 2px $space-3;
+    border-radius: $radius-pill;
+  }
+}
+
 .stat-card {
   @include glass;
   @include flex-column;
@@ -972,6 +1052,19 @@
     @include container;
     position: relative;
     z-index: 10;
+  }
+
+  &__devotional {
+    display: inline-block;
+    color: #FFD700;
+    font-weight: $fw-bold;
+    font-size: $fs-md;
+    background: rgba($color-primary, 0.15);
+    padding: $space-2 $space-6;
+    border-radius: $radius-pill;
+    border: 1px solid rgba(#FFD700, 0.3);
+    margin-bottom: $space-4;
+    text-shadow: 0 0 12px rgba(#FFD700, 0.4);
   }
 
   &__heading {

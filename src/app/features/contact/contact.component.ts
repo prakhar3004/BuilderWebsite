@@ -39,28 +39,28 @@ export class ContactComponent implements AfterViewInit, OnDestroy {
 
   contactInfo: ContactInfo[] = [
     {
-      icon: '📞',
-      title: 'Phone',
-      value: '+91 98765 43210',
-      subValue: '+91 87654 32109'
+      icon: '👤',
+      title: 'Proprietor & Key Contact',
+      value: 'Naveen Sharma',
+      subValue: '!! Jai Guru Ji !!'
     },
     {
-      icon: '✉️',
-      title: 'Email',
-      value: 'info@buildnest.com',
-      subValue: 'sales@buildnest.com'
+      icon: '📞',
+      title: 'Phone Numbers',
+      value: '+91 97170 77387',
+      subValue: '+91 79821 00504'
     },
     {
       icon: '📍',
       title: 'Office Address',
-      value: '42, Vikram Tower, Gomti Nagar',
-      subValue: 'Lucknow, UP 226010'
+      value: 'Office No. 420, 4th Floor',
+      subValue: 'Soho Precision Tower, Sector-67, Gurugram'
     },
     {
-      icon: '🕐',
-      title: 'Working Hours',
-      value: 'Mon — Sat: 9:00 AM — 7:00 PM',
-      subValue: 'Sunday: By Appointment'
+      icon: '✉️',
+      title: 'Email Us',
+      value: 'info@krishnaconstruction.com',
+      subValue: 'sales@krishnaconstruction.com'
     }
   ];
 
@@ -82,7 +82,7 @@ export class ContactComponent implements AfterViewInit, OnDestroy {
     },
     {
       question: 'Can I customize the design of my home?',
-      answer: 'Absolutely! Every BuildNest home is fully customizable. Our architects work closely with you to understand your lifestyle, preferences, and budget. From floor plans to elevation designs, interior layouts to smart home features — we build exactly what you envision.',
+      answer: 'Absolutely! Every Krishna Construction project is fully customizable. Our architects work closely with you to understand your lifestyle, preferences, and budget. From floor plans to elevation designs, interior layouts to smart home features — we build exactly what you envision.',
       isOpen: false
     },
     {

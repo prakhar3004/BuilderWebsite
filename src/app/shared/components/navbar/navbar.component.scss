@@ -1,22 +1,100 @@
 @use 'variables' as *;
 @use 'mixins' as *;
 
+// Top Header Bar
+.top-header-bar {
+  position: relative;
+  z-index: $z-navbar + 2;
+  background: linear-gradient(90deg, rgba(#0A0A12, 0.95) 0%, rgba(#16213E, 0.95) 50%, rgba(#0A0A12, 0.95) 100%);
+  border-bottom: 1px solid rgba($color-primary, 0.25);
+  padding: 6px 0;
+  font-size: 0.8rem;
+  color: $color-text-secondary;
+}
+
+.top-header-container {
+  @include container;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: $space-2;
+}
+
+.top-header-left {
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+
+  .blessing-tag {
+    font-weight: $fw-bold;
+    color: #FFD700;
+    letter-spacing: 0.05em;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba($color-primary, 0.12);
+    padding: 2px 10px;
+    border-radius: $radius-pill;
+    border: 1px solid rgba(#FFD700, 0.3);
+    text-shadow: 0 0 10px rgba(#FFD700, 0.4);
+  }
+
+  .proprietor-tag {
+    color: $color-text-primary;
+    font-weight: $fw-semibold;
+  }
+}
+
+.top-header-right {
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+
+  .phone-group {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+  }
+
+  .top-phone {
+    color: #FFD700;
+    text-decoration: none;
+    font-weight: $fw-semibold;
+    transition: color $transition-fast;
+
+    &:hover {
+      color: #FFF;
+      text-decoration: underline;
+    }
+  }
+
+  .sep {
+    color: $color-text-muted;
+  }
+
+  .top-address {
+    color: $color-text-muted;
+    @include mobile-only { display: none; }
+  }
+}
+
 .navbar {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: $z-navbar;
-  padding: $space-5 0;
+  padding: $space-4 0;
   transition: all $transition-base;
   background: transparent;
 
   &.scrolled {
-    padding: $space-3 0;
-    background: rgba($color-bg-dark, 0.92);
+    padding: $space-2 0;
+    background: rgba($color-bg-dark, 0.94);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid $color-border-light;
+    border-bottom: 1px solid $color-border;
     box-shadow: $shadow-md;
   }
 
@@ -34,24 +112,48 @@
 .logo {
   display: flex;
   align-items: center;
-  gap: $space-2;
+  gap: $space-3;
   text-decoration: none;
   z-index: $z-navbar + 1;
 
-  .logo-icon {
-    font-size: $fs-2xl;
-    filter: drop-shadow(0 0 8px rgba($color-primary, 0.4));
+  .logo-mark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(0 0 10px rgba($color-primary, 0.5));
+    transition: transform $transition-base;
+
+    &:hover {
+      transform: scale(1.08);
+    }
   }
 
-  .logo-text {
-    font-family: $font-heading;
-    font-size: $fs-xl;
-    font-weight: $fw-bold;
-    color: $color-text-primary;
-    letter-spacing: $ls-tight;
+  .logo-text-box {
+    display: flex;
+    flex-direction: column;
 
-    .logo-accent {
-      @include text-gradient;
+    .logo-main {
+      font-family: $font-heading;
+      font-size: $fs-lg;
+      font-weight: $fw-black;
+      color: $color-text-primary;
+      letter-spacing: $ls-tight;
+      line-height: 1.1;
+
+      .logo-accent {
+        background: linear-gradient(135deg, #FFD700 0%, #D4A017 50%, #E85D04 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+    }
+
+    .logo-sub {
+      font-family: $font-body;
+      font-size: 0.65rem;
+      color: $color-primary-light;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: $fw-medium;
     }
   }
 }
@@ -165,7 +267,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: $space-8;
+  gap: $space-6;
   opacity: 0;
   visibility: hidden;
   transition: all $transition-base;
@@ -174,6 +276,30 @@
   &.open {
     opacity: 1;
     visibility: visible;
+  }
+
+  .mobile-blessing {
+    color: #FFD700;
+    font-weight: $fw-bold;
+    font-size: $fs-md;
+    background: rgba($color-primary, 0.15);
+    padding: $space-2 $space-6;
+    border-radius: $radius-pill;
+    border: 1px solid rgba(#FFD700, 0.3);
+  }
+
+  .mobile-phones {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $space-2;
+
+    .mobile-phone-link {
+      color: #FFD700;
+      font-size: $fs-md;
+      font-weight: $fw-bold;
+      text-decoration: none;
+    }
   }
 }
 
@@ -190,5 +316,5 @@
 }
 
 .mobile-cta {
-  margin-top: $space-4;
+  margin-top: $space-2;
 }

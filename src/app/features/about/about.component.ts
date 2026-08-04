@@ -67,45 +67,45 @@ export class AboutComponent implements AfterViewInit, OnDestroy {
 
   team: TeamMember[] = [
     {
-      initials: 'VK',
-      name: 'Vikram Khanna',
-      role: 'Founder & CEO',
-      description: 'Visionary leader with 20+ years in real estate and construction. Passionate about building communities.',
-      gradient: 'linear-gradient(135deg, #D4A017, #E85D04)'
+      initials: 'NS',
+      name: 'Naveen Sharma',
+      role: 'Proprietor & Founder',
+      description: 'Visionary leader behind Krishna Construction with 15+ years of excellence in property deals, construction, and renovation across Gurugram.',
+      gradient: 'linear-gradient(135deg, #FFD700, #E85D04)'
     },
     {
       initials: 'AM',
       name: 'Ananya Mehta',
       role: 'Chief Architect',
-      description: 'Award-winning architect specializing in sustainable and vastu-compliant residential designs.',
+      description: 'Award-winning architect specializing in luxury, sustainable and vastu-compliant residential & commercial designs in Gurugram.',
       gradient: 'linear-gradient(135deg, #E85D04, #FF7B29)'
     },
     {
       initials: 'RS',
       name: 'Rajan Singh',
-      role: 'Head of Engineering',
-      description: 'Structural engineering expert with expertise in earthquake-resistant and green building technologies.',
+      role: 'Head of Structural Engineering',
+      description: 'Structural engineering expert specializing in earthquake-resistant RCC frameworks and modern elevation construction.',
       gradient: 'linear-gradient(135deg, #2ECC71, #27AE60)'
     },
     {
       initials: 'PD',
       name: 'Priya Desai',
-      role: 'Interior Design Lead',
-      description: 'Creative interior designer transforming spaces into luxurious, functional living experiences.',
+      role: 'Interior & Renovation Lead',
+      description: 'Creative interior designer transforming spaces into luxurious, functional living and commercial experiences.',
       gradient: 'linear-gradient(135deg, #9B59B6, #8E44AD)'
     },
     {
       initials: 'AK',
       name: 'Arjun Kumar',
-      role: 'Project Manager',
-      description: 'Certified PMP professional ensuring every project is delivered on time, within budget, and beyond expectations.',
+      role: 'Project Delivery Manager',
+      description: 'Certified PMP professional ensuring every construction project is delivered on schedule with strict quality standards.',
       gradient: 'linear-gradient(135deg, #3498DB, #2980B9)'
     },
     {
       initials: 'NK',
       name: 'Neha Kapoor',
-      role: 'Head of Sales',
-      description: 'Real estate consultant helping families find their perfect home with personalized guidance and support.',
+      role: 'Head of Property Deals',
+      description: 'Senior property consultant assisting clients with developer tie-ups (DLF, M3M, Signature Global, Trinity, Aurrum, Whiteland).',
       gradient: 'linear-gradient(135deg, #E74C3C, #C0392B)'
     }
   ];
