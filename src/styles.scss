@@ -61,14 +61,16 @@ h1, h2, h3, h4, h5, h6 {
   line-height: $lh-tight;
   letter-spacing: $ls-tight;
   color: $color-text-primary;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
-h1 { font-size: $fs-5xl; @include respond-to('lg') { font-size: $fs-6xl; } }
-h2 { font-size: $fs-3xl; @include respond-to('lg') { font-size: $fs-4xl; } }
-h3 { font-size: $fs-2xl; @include respond-to('lg') { font-size: $fs-3xl; } }
-h4 { font-size: $fs-xl;  }
-h5 { font-size: $fs-lg;  }
-h6 { font-size: $fs-md;  }
+h1 { font-size: clamp(2rem, 6.5vw, 4.5rem); }
+h2 { font-size: clamp(1.65rem, 4.5vw, 3rem); }
+h3 { font-size: clamp(1.35rem, 3.5vw, 2.25rem); }
+h4 { font-size: clamp(1.15rem, 2.5vw, 1.5rem); }
+h5 { font-size: clamp(1rem, 2vw, 1.25rem); }
+h6 { font-size: $fs-md; }
 
 p {
   color: $color-text-secondary;

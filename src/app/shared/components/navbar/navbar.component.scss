@@ -82,7 +82,7 @@
 
 // Desktop Nav
 .desktop-nav {
-  @include mobile-only { display: none !important; }
+  @media (max-width: $bp-lg - 1) { display: none !important; }
 }
 
 .nav-links {
@@ -151,7 +151,7 @@
   padding: $space-2;
   z-index: $z-navbar + 1;
 
-  @include mobile-only { display: flex; }
+  @media (max-width: $bp-lg - 1) { display: flex; }
 
   .line {
     display: block;
