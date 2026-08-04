@@ -13,6 +13,7 @@ export interface QualityPackage {
 }
 
 export interface MaterialEstimate {
+  id: string;
   name: string;
   icon: string;
   unit: string;
@@ -164,6 +165,7 @@ export class CalculatorComponent implements OnInit {
 
     return [
       {
+        id: 'cement',
         name: 'Cement',
         icon: '🧱',
         unit: 'Bags (50kg)',
@@ -175,6 +177,7 @@ export class CalculatorComponent implements OnInit {
         specText: 'UltraTech / ACC Grade 53 PPC'
       },
       {
+        id: 'steel',
         name: 'Steel (TMT Bars)',
         icon: '⚙️',
         unit: 'Kg / Tonnes',
@@ -186,6 +189,7 @@ export class CalculatorComponent implements OnInit {
         specText: 'Tata Tiscon / Jindal FE 550D'
       },
       {
+        id: 'sand',
         name: 'Sand (M-Sand / Coarse)',
         icon: '🏖️',
         unit: 'Cu. Ft. (Cft)',
@@ -197,6 +201,7 @@ export class CalculatorComponent implements OnInit {
         specText: 'Double Washed River Sand / M-Sand'
       },
       {
+        id: 'aggregate',
         name: 'Aggregate (Rori 10mm & 20mm)',
         icon: '🪨',
         unit: 'Cu. Ft. (Cft)',
@@ -208,6 +213,7 @@ export class CalculatorComponent implements OnInit {
         specText: 'Hard Blue Metal Machine Crushed'
       },
       {
+        id: 'brick',
         name: 'Bricks / AAC Blocks',
         icon: '🏗️',
         unit: 'Pcs',
@@ -219,6 +225,7 @@ export class CalculatorComponent implements OnInit {
         specText: 'Class 1 Red Clay / AAC Blocks'
       },
       {
+        id: 'tile',
         name: 'Flooring & Wall Tiles',
         icon: '⬛',
         unit: 'Sq. Ft.',
@@ -230,6 +237,7 @@ export class CalculatorComponent implements OnInit {
         specText: 'GVT Double Charge / Vitrified'
       },
       {
+        id: 'paint',
         name: 'Paints & Primer',
         icon: '🎨',
         unit: 'Liters',
@@ -263,6 +271,20 @@ export class CalculatorComponent implements OnInit {
     this.cd.markForCheck();
   }
 
+  updateMaterialRate(id: string, newRate: any) {
+    const val = Number(newRate) || 0;
+    switch (id) {
+      case 'cement': this.cementRate = val; break;
+      case 'steel': this.steelRate = val; break;
+      case 'sand': this.sandRate = val; break;
+      case 'aggregate': this.aggregateRate = val; break;
+      case 'brick': this.brickRate = val; break;
+      case 'tile': this.tileRate = val; break;
+      case 'paint': this.paintRate = val; break;
+    }
+    this.cd.markForCheck();
+  }
+
   formatCurrency(val: number): string {
     return new Intl.NumberFormat('en-IN', {
       style: 'currency',
@@ -283,12 +305,24 @@ export class CalculatorComponent implements OnInit {
   }
 
   getWhatsAppUrl(): string {
-    const text = `Hello Naveen Sharma ji (Krishna Construction), I used your Civil Construction Calculator for my project:\n` +
-      `• Plot Area: ${this.plotArea} ${this.areaUnit.toUpperCase()} (${this.totalBuiltUpArea} Sq. Ft. Built-up)\n` +
-      `• Floors: ${this.floors} (${this.getFloorLabel()})\n` +
-      `• Package: ${this.currentPackage.name} (@ ₹${this.currentPackage.ratePerSqFt}/sqft)\n` +
-      `• Estimated Total Cost: ${this.formatLakhs(this.totalEstimatedCost)}\n\n` +
-      `Please provide a formal BOQ and consultation for my property in Gurugram.`;
+    let text = '';
+    if (this.activeTab === 'material') {
+      text = `Hello Naveen Sharma ji (Krishna Construction), I used your Civil Material Estimator for my project:\n` +
+        `• Plot Area: ${this.plotArea} ${this.areaUnit.toUpperCase()} (${this.totalBuiltUpArea} Sq. Ft. Built-up)\n` +
+        `• Floors: ${this.floors} (${this.getFloorLabel()})\n` +
+        `• Estimated Material Budget: ${this.formatLakhs(this.totalMaterialCost)}\n` +
+        `• Cement: ${this.materialEstimates[0].formattedQty}\n` +
+        `• Steel: ${this.materialEstimates[1].formattedQty}\n` +
+        `• Bricks: ${this.materialEstimates[4].formattedQty}\n\n` +
+        `Please provide a detailed BOQ quote for my construction in Gurugram.`;
+    } else {
+      text = `Hello Naveen Sharma ji (Krishna Construction), I used your Civil Construction Calculator for my project:\n` +
+        `• Plot Area: ${this.plotArea} ${this.areaUnit.toUpperCase()} (${this.totalBuiltUpArea} Sq. Ft. Built-up)\n` +
+        `• Floors: ${this.floors} (${this.getFloorLabel()})\n` +
+        `• Package: ${this.currentPackage.name} (@ ₹${this.currentPackage.ratePerSqFt}/sqft)\n` +
+        `• Estimated Total Cost: ${this.formatLakhs(this.totalEstimatedCost)}\n\n` +
+        `Please provide a formal BOQ and consultation for my property in Gurugram.`;
+    }
     return `https://wa.me/919717077387?text=${encodeURIComponent(text)}`;
   }
 

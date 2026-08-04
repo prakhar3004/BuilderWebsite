@@ -137,6 +137,21 @@
   }
 }
 
+.shared-specs-card {
+  margin-bottom: $space-8;
+
+  .specs-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $space-6;
+
+    @include respond-to('md') {
+      grid-template-columns: 1.2fr 1fr;
+      gap: $space-8;
+    }
+  }
+}
+
 .card-heading {
   font-family: $font-heading;
   font-size: $fs-xl;
