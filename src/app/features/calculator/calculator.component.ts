@@ -42,6 +42,8 @@ export class CalculatorComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.recalculateMaterials();
+
     this.route.queryParams.subscribe(params => {
       if (params['tab'] === 'material') {
         this.activeTab = 'material';
@@ -53,10 +55,28 @@ export class CalculatorComponent implements OnInit {
   }
 
   // --- Calculator 1 Inputs ---
-  plotArea: number = 1000;
-  areaUnit: 'sqft' | 'gaz' = 'sqft';
-  floors: number = 2; // G+1
+  _plotArea: number = 1000;
+  _areaUnit: 'sqft' | 'gaz' = 'sqft';
+  _floors: number = 2; // G+1
   selectedPackageId: string = 'premium';
+
+  get plotArea(): number { return this._plotArea; }
+  set plotArea(val: number) {
+    this._plotArea = val;
+    this.recalculateMaterials();
+  }
+
+  get areaUnit(): 'sqft' | 'gaz' { return this._areaUnit; }
+  set areaUnit(val: 'sqft' | 'gaz') {
+    this._areaUnit = val;
+    this.recalculateMaterials();
+  }
+
+  get floors(): number { return this._floors; }
+  set floors(val: number) {
+    this._floors = val;
+    this.recalculateMaterials();
+  }
 
   packages: QualityPackage[] = [
     {
@@ -117,6 +137,9 @@ export class CalculatorComponent implements OnInit {
   tileRate: number = 65;          // per sq. ft.
   paintRate: number = 260;        // per liter
 
+  materialEstimatesList: MaterialEstimate[] = [];
+  totalMaterialCost: number = 0;
+
   // --- Computed Properties for Cost Calculator ---
   get areaInSqFt(): number {
     return this.areaUnit === 'gaz' ? this.plotArea * 9 : this.plotArea;
@@ -150,11 +173,10 @@ export class CalculatorComponent implements OnInit {
     return Math.round(this.totalEstimatedCost * 0.08);
   }
 
-  // --- Computed Properties for Material Calculator ---
-  get materialEstimates(): MaterialEstimate[] {
+  // --- Material Calculations ---
+  recalculateMaterials(): void {
     const area = this.totalBuiltUpArea;
 
-    // IS Thumb Rules per sq ft
     const cementBags = Math.round(area * 0.42);
     const steelKg = Math.round(area * 4.0);
     const sandCft = Math.round(area * 1.8);
@@ -163,7 +185,7 @@ export class CalculatorComponent implements OnInit {
     const tilesSqFt = Math.round(area * 1.3);
     const paintLiters = Math.round(area * 0.18);
 
-    return [
+    this.materialEstimatesList = [
       {
         id: 'cement',
         name: 'Cement',
@@ -249,10 +271,12 @@ export class CalculatorComponent implements OnInit {
         specText: 'Asian Paints Royal Emulsion + Primer'
       }
     ];
+
+    this.totalMaterialCost = this.materialEstimatesList.reduce((sum, item) => sum + item.totalCost, 0);
   }
 
-  get totalMaterialCost(): number {
-    return this.materialEstimates.reduce((sum, item) => sum + item.totalCost, 0);
+  trackByMaterialId(index: number, item: MaterialEstimate): string {
+    return item.id;
   }
 
   // --- Helper Methods ---
@@ -282,6 +306,7 @@ export class CalculatorComponent implements OnInit {
       case 'tile': this.tileRate = val; break;
       case 'paint': this.paintRate = val; break;
     }
+    this.recalculateMaterials();
     this.cd.markForCheck();
   }
 
@@ -307,13 +332,17 @@ export class CalculatorComponent implements OnInit {
   getWhatsAppUrl(): string {
     let text = '';
     if (this.activeTab === 'material') {
+      const cement = this.materialEstimatesList[0]?.formattedQty || '';
+      const steel = this.materialEstimatesList[1]?.formattedQty || '';
+      const bricks = this.materialEstimatesList[4]?.formattedQty || '';
+
       text = `Hello Naveen Sharma ji (Krishna Construction), I used your Civil Material Estimator for my project:\n` +
         `• Plot Area: ${this.plotArea} ${this.areaUnit.toUpperCase()} (${this.totalBuiltUpArea} Sq. Ft. Built-up)\n` +
         `• Floors: ${this.floors} (${this.getFloorLabel()})\n` +
         `• Estimated Material Budget: ${this.formatLakhs(this.totalMaterialCost)}\n` +
-        `• Cement: ${this.materialEstimates[0].formattedQty}\n` +
-        `• Steel: ${this.materialEstimates[1].formattedQty}\n` +
-        `• Bricks: ${this.materialEstimates[4].formattedQty}\n\n` +
+        `• Cement: ${cement}\n` +
+        `• Steel: ${steel}\n` +
+        `• Bricks: ${bricks}\n\n` +
         `Please provide a detailed BOQ quote for my construction in Gurugram.`;
     } else {
       text = `Hello Naveen Sharma ji (Krishna Construction), I used your Civil Construction Calculator for my project:\n` +

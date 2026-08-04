@@ -234,7 +234,7 @@
             </div>
 
             <div class="materials-grid">
-              <div *ngFor="let item of materialEstimates" class="material-card">
+              <div *ngFor="let item of materialEstimatesList; trackBy: trackByMaterialId" class="material-card">
                 <div class="mat-icon-wrap">
                   <span class="mat-icon">{{ item.icon }}</span>
                 </div>
